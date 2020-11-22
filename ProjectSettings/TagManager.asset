@@ -8,6 +8,7 @@ TagManager:
   - PurpDeck
   - RedDeck
   - YellDeck
+  - EquipDeck
   layers:
   - Default
   - TransparentFX
