@@ -9,6 +9,7 @@ TagManager:
   - RedDeck
   - YellDeck
   - EquipDeck
+  - cover
   layers:
   - Default
   - TransparentFX

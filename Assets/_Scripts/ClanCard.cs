@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CardPhase {
+    idle,
+    selectMenu
+}
+
+
 public class ClanCard : MonoBehaviour
 {
     int sortingLayer;
     bool faceUp;
     GameObject cover;
+    public CardPhase phase;
 
     [Header("Put in")]
     public GameObject FaceDownPrefab;

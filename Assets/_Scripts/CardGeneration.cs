@@ -24,7 +24,7 @@ public class CardGeneration : MonoBehaviour
 
     public GameObject cardPrefab;
     public GameObject equipPrefab;
-    public GameObject eDeckCover;
+    public GameObject DeckCover;
 
     public GameObject eEnergyPrefab;
     public GameObject eTaintedPrefab;
@@ -214,8 +214,8 @@ public class CardGeneration : MonoBehaviour
             elixirDeck.Add(tempEnergy);
             elixirDeck.Add(tempTainted);
         }
-        Instantiate(eDeckCover);
-        eDeckCover.transform.localScale = new Vector3(17,19,1);
+        Instantiate(DeckCover);
+        DeckCover.transform.localScale = new Vector3(17,19,1);
     }
     void Start()
     {        
