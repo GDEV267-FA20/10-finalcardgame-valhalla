@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class Valhalla : MonoBehaviour
 {
-    Transform arch1;
-    Transform arch2;        //used for returning cards to deck
-    Transform arch3;
-
     [Header("For Delegate Menu Selection:")]
     public float[] position;
     public float xOffset;
     public float yOffset;
     public GameObject menuBG;
     public GameObject selectButtons;
+    string archID;
 
     [Header("all you bruv")]
     public List<GameObject> players;
@@ -27,10 +24,30 @@ public class Valhalla : MonoBehaviour
         LayoutGame();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         
+        foreach(GameObject player in players)
+        {
+            if (player.GetComponent<MainHand>().clanCard == null)
+            {
+                if (player == players[0]) selectButtons.transform.Find("Blue").gameObject.SetActive(true);
+                if (player == players[1]) selectButtons.transform.Find("Purp").gameObject.SetActive(true);
+                if (player == players[2]) selectButtons.transform.Find("Red").gameObject.SetActive(true);
+                if (player == players[3]) selectButtons.transform.Find("Yell").gameObject.SetActive(true);
+                return;
+            }
+
+            if (player == players[0]) selectButtons.transform.Find("Blue").gameObject.SetActive(false);
+            if (player == players[1]) selectButtons.transform.Find("Purp").gameObject.SetActive(false);
+            if (player == players[2]) selectButtons.transform.Find("Red").gameObject.SetActive(false);
+            if (player == players[3]) selectButtons.transform.Find("Yell").gameObject.SetActive(false);
+
+            GameObject card = player.GetComponent<MainHand>().clanCard;
+            card.transform.position = player.transform.position;
+            card.transform.eulerAngles = player.transform.eulerAngles;
+            card.GetComponent<SpriteRenderer>().sortingOrder = player.GetComponent<MainHand>().equipCard.GetComponent<SpriteRenderer>().sortingOrder + 1;
+        }
     }
 
     void LayoutGame()
@@ -69,8 +86,7 @@ public class Valhalla : MonoBehaviour
 
     public void SelectMenu(string id)
     {
-        
-
+        archID = id;
         if (id == "PurpDeck")
         {            
             players[1].transform.position = new Vector2(-1, -5);
@@ -112,6 +128,23 @@ public class Valhalla : MonoBehaviour
         }
     }
 
+    public void SelectCard(int ind)
+    {
+        GameObject player = null;
+        if (archID == "BlueDeck") player = players[0];
+        if (archID == "PurpDeck") player = players[1];
+        if (archID == "RedDeck") player = players[2];
+        if (archID == "YellDeck") player = players[3];
+
+        if (player == null) return;
+        GameObject playedCard = GameObject.FindGameObjectWithTag(archID).transform.GetChild(ind).gameObject;
+        player.GetComponent<MainHand>().clanCard = playedCard;
+        playedCard.transform.position = player.transform.position;
+        playedCard.transform.eulerAngles = player.transform.eulerAngles;
+        playedCard.GetComponent<SpriteRenderer>().sortingOrder = player.GetComponent<MainHand>().equipCard.GetComponent<SpriteRenderer>().sortingOrder + 1;
+        playedCard.GetComponent<ClanCard>().inPlay = true;
+    }
+
     public void DeckReturn()
     {
         players[1].transform.position = new Vector2(-7, 1);
@@ -123,7 +156,7 @@ public class Valhalla : MonoBehaviour
         players[3].transform.eulerAngles = new Vector3(0,0,90);
       
         foreach (Transform card in GameObject.FindGameObjectWithTag("BlueDeck").transform)
-        {
+        {            
             if (card.tag == "cover") card.gameObject.SetActive(true);
             card.transform.position = GameObject.FindGameObjectWithTag("BlueDeck").transform.position;
         }
