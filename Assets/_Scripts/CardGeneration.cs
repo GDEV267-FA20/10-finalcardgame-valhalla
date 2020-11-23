@@ -117,72 +117,72 @@ public class CardGeneration : MonoBehaviour
             {
                 temp = Instantiate(equipPrefab);
                 temp.GetComponent<SpriteRenderer>().sprite = equipSprites[secInd];
-                temp.GetComponent<EquipCard>().weap = 1;                                //refined weapon
-                temp.GetComponent<EquipCard>().arm = -1;                                 //fitted armor
+                temp.GetComponent<EquipCard>().Weap = 1;                                //refined weapon
+                temp.GetComponent<EquipCard>().Arm = -1;                                 //fitted armor
                 temp.name = "Refined - Fitted";
             }
             if (x == 1)
             {
                 temp = Instantiate(equipPrefab);
                 temp.GetComponent<SpriteRenderer>().sprite = equipSprites[secInd];
-                temp.GetComponent<EquipCard>().weap = 1;                                //refined weapon
-                temp.GetComponent<EquipCard>().arm = 0;                                 //leather armor
+                temp.GetComponent<EquipCard>().Weap = 1;                                //refined weapon
+                temp.GetComponent<EquipCard>().Arm = 0;                                 //leather armor
                 temp.name = "Refined - Leather";
             }
             if (x == 2)
             {
                 temp = Instantiate(equipPrefab);
                 temp.GetComponent<SpriteRenderer>().sprite = equipSprites[secInd];
-                temp.GetComponent<EquipCard>().weap = 1;                                //refined weapon
-                temp.GetComponent<EquipCard>().arm = 1;                                 //ragged armor
+                temp.GetComponent<EquipCard>().Weap = 1;                                //refined weapon
+                temp.GetComponent<EquipCard>().Arm = 1;                                 //ragged armor
                 temp.name = "Refined - Ragged";
             }
             if (x == 3)
             {
                 temp = Instantiate(equipPrefab);
                 temp.GetComponent<SpriteRenderer>().sprite = equipSprites[secInd];
-                temp.GetComponent<EquipCard>().weap = 0;                                //tempered weapon
-                temp.GetComponent<EquipCard>().arm = -1;                                 //fitted armor
+                temp.GetComponent<EquipCard>().Weap = 0;                                //tempered weapon
+                temp.GetComponent<EquipCard>().Arm = -1;                                 //fitted armor
                 temp.name = "Tempered - Fitted";
             }
             if (x == 4)
             {
                 temp = Instantiate(equipPrefab);
                 temp.GetComponent<SpriteRenderer>().sprite = equipSprites[secInd];
-                temp.GetComponent<EquipCard>().weap = 0;                                //tempered weapon
-                temp.GetComponent<EquipCard>().arm = 0;                                 //leather armor
+                temp.GetComponent<EquipCard>().Weap = 0;                                //tempered weapon
+                temp.GetComponent<EquipCard>().Arm = 0;                                 //leather armor
                 temp.name = "Tempered - Leather";
             }
             if (x == 5)
             {
                 temp = Instantiate(equipPrefab);
                 temp.GetComponent<SpriteRenderer>().sprite = equipSprites[secInd];
-                temp.GetComponent<EquipCard>().weap = 0;                                //tempered weapon
-                temp.GetComponent<EquipCard>().arm = 1;                                 //ragged armor
+                temp.GetComponent<EquipCard>().Weap = 0;                                //tempered weapon
+                temp.GetComponent<EquipCard>().Arm = 1;                                 //ragged armor
                 temp.name = "Tempered - Ragged";
             }
             if (x == 6)
             {
                 temp = Instantiate(equipPrefab);
                 temp.GetComponent<SpriteRenderer>().sprite = equipSprites[secInd];
-                temp.GetComponent<EquipCard>().weap = -1;                                //worn weapon
-                temp.GetComponent<EquipCard>().arm = -1;                                 //fitted armor
+                temp.GetComponent<EquipCard>().Weap = -1;                                //worn weapon
+                temp.GetComponent<EquipCard>().Arm = -1;                                 //fitted armor
                 temp.name = "Worn - Fitted";
             }
             if (x == 7)
             {
                 temp = Instantiate(equipPrefab);
                 temp.GetComponent<SpriteRenderer>().sprite = equipSprites[secInd];
-                temp.GetComponent<EquipCard>().weap = -1;                                //worn weapon
-                temp.GetComponent<EquipCard>().arm = 0;                                 //leather armor
+                temp.GetComponent<EquipCard>().Weap = -1;                                //worn weapon
+                temp.GetComponent<EquipCard>().Arm = 0;                                 //leather armor
                 temp.name = "Worn - Leather";
             }
             if (x == 8)
             {
                 temp = Instantiate(equipPrefab);
                 temp.GetComponent<SpriteRenderer>().sprite = equipSprites[secInd];
-                temp.GetComponent<EquipCard>().weap = -1;                                //worn weapon
-                temp.GetComponent<EquipCard>().arm = 1;                                 //ragged armor
+                temp.GetComponent<EquipCard>().Weap = -1;                                //worn weapon
+                temp.GetComponent<EquipCard>().Arm = 1;                                 //ragged armor
                 temp.name = "Worn - Ragged";
             }
             temp.transform.localScale = new Vector3(0.6f, 0.6f, 1);

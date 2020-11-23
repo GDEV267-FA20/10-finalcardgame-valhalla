@@ -56,11 +56,11 @@ public class Valhalla : MonoBehaviour
         {
             GameObject equipGO = CardGeneration.S.equipDeck[Random.Range(0, 8)];
             Debug.Log(equipGO.name);
-            while(equipGO.GetComponent<EquipCard>().inPlay == true)
+            while(equipGO.GetComponent<EquipCard>().InPlay == true)
             {
                 equipGO = CardGeneration.S.equipDeck[Random.Range(0, 8)];
             }
-            equipGO.GetComponent<EquipCard>().inPlay = true;
+            equipGO.GetComponent<EquipCard>().InPlay = true;
 
             player.GetComponent<MainHand>().equipCard = equipGO;
             equipGO.transform.position = player.transform.position;
