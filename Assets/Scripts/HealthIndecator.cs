@@ -16,7 +16,7 @@ public class HealthIndecator : MonoBehaviour
     {
         slider = GetComponent<Slider>();
 
-        slider.value = 14;
+        slider.value = slider.maxValue;
 
     }
 
