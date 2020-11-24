@@ -4,9 +4,47 @@ using UnityEngine;
 
 public class EquipCard : MonoBehaviour
 {
-    public int weap;
-    public int arm;
-    public bool inPlay;
+    private int weap;
+    private int arm;
+    private bool inPlay;
+
+    public int Weap
+    {
+        get
+        {
+            return weap;
+        }
+        set
+        {
+            weap = value;
+        }
+    }
+
+    public int Arm
+    {
+        get
+        {
+            return arm;
+        }
+        set
+        {
+            arm = value;
+        }
+    }
+
+    public bool InPlay
+    {
+        get
+        {
+            return inPlay;
+        }
+        set
+        {
+            inPlay = value;
+        }
+    }
+
+
 
     void Start()
     {
@@ -16,4 +54,12 @@ public class EquipCard : MonoBehaviour
     void Update()
     {        
     }
+
+
+
+
+
+
+
+
 }

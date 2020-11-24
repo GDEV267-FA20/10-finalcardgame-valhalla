@@ -11,6 +11,7 @@ public class Valhalla : MonoBehaviour
     public GameObject menuBG;
     public GameObject selectButtons;
     string archID;
+    List<GameObject> revealCovers;
 
     [Header("all you bruv")]
     public List<GameObject> players;
@@ -18,6 +19,7 @@ public class Valhalla : MonoBehaviour
     void Awake()
     {
         menuBG.SetActive(false);
+        revealCovers = new List<GameObject>();
     }
     void Start()
     {
@@ -26,7 +28,13 @@ public class Valhalla : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+        if(players[0].GetComponent<MainHand>().clanCard != null && players[1].GetComponent<MainHand>().clanCard != null && players[2].GetComponent<MainHand>().clanCard != null && players[3].GetComponent<MainHand>().clanCard != null)
+        {
+            foreach(GameObject cover in revealCovers)
+            {
+                cover.SetActive(false);
+            }
+        }
         foreach(GameObject player in players)
         {
             if (player.GetComponent<MainHand>().clanCard == null)
@@ -56,11 +64,11 @@ public class Valhalla : MonoBehaviour
         {
             GameObject equipGO = CardGeneration.S.equipDeck[Random.Range(0, 8)];
             Debug.Log(equipGO.name);
-            while(equipGO.GetComponent<EquipCard>().inPlay == true)
+            while(equipGO.GetComponent<EquipCard>().InPlay == true)
             {
                 equipGO = CardGeneration.S.equipDeck[Random.Range(0, 8)];
             }
-            equipGO.GetComponent<EquipCard>().inPlay = true;
+            equipGO.GetComponent<EquipCard>().InPlay = true;
 
             player.GetComponent<MainHand>().equipCard = equipGO;
             equipGO.transform.position = player.transform.position;
@@ -143,6 +151,12 @@ public class Valhalla : MonoBehaviour
         playedCard.transform.eulerAngles = player.transform.eulerAngles;
         playedCard.GetComponent<SpriteRenderer>().sortingOrder = player.GetComponent<MainHand>().equipCard.GetComponent<SpriteRenderer>().sortingOrder + 1;
         playedCard.GetComponent<ClanCard>().inPlay = true;
+
+        GameObject tempCover = Instantiate(CardGeneration.S.DeckCover, playedCard.transform);
+        tempCover.transform.localScale = new Vector2(16, 23);
+        tempCover.transform.eulerAngles = player.transform.eulerAngles;
+        tempCover.GetComponent<SpriteRenderer>().sortingOrder = 1;
+        revealCovers.Add(tempCover);
     }
 
     public void DeckReturn()
