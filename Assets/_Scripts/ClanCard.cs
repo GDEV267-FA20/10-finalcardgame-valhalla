@@ -10,6 +10,8 @@ public class ClanCard : MonoBehaviour
     bool faceUp;
     GameObject cover;
     public bool inPlay;
+    public int health;
+    public int attack;
 
     [Header("Put in")]
     public GameObject FaceDownPrefab;

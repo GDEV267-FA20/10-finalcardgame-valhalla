@@ -47,6 +47,7 @@ public class CardGeneration : MonoBehaviour
             for (int z = 0; z < 10; z++)
             {
                 GameObject temp = Instantiate(cardPrefab);
+                ClanCard card = temp.GetComponent<ClanCard>();
                 temp.GetComponent<SpriteRenderer>().sprite = clanSprites[ind];
                 temp.transform.localScale = new Vector3(1, 0.9f, 1);
                 if (i == 0)
@@ -55,9 +56,22 @@ public class CardGeneration : MonoBehaviour
                     {
                         id = "Blue Chieftain";
                         temp.GetComponent<SpriteRenderer>().sortingOrder = 5;
+                        card.health = 10;
+                        card.attack = 0;
                     }
-                    else if(z>4) id = "Blue "+ z;
-                    else id = "Blue " + (z+1);
+                    else if (z > 4)
+                    {
+                        id = "Blue " + z;
+                        card.health = z + 5;
+                        if (z == 5) card.attack = 0;
+                        else card.attack = -z + 6;
+                    }
+                    else
+                    {
+                        id = "Blue " + (z + 1);
+                        temp.GetComponent<ClanCard>().health = z + 6;
+                        card.attack = -z + 3;
+                    }
                     temp.transform.position = GameObject.FindGameObjectWithTag("BlueDeck").transform.position;
                     temp.transform.parent = GameObject.FindGameObjectWithTag("BlueDeck").transform;
                     temp.transform.rotation = GameObject.FindGameObjectWithTag("BlueDeck").transform.rotation;
@@ -69,9 +83,22 @@ public class CardGeneration : MonoBehaviour
                     {
                         id = "Purp Chieftain";
                         temp.GetComponent<SpriteRenderer>().sortingOrder = 5;
+                        card.health = 10;
+                        card.attack = 0;
                     }
-                    else if (z > 4) id = "Purp " + z;
-                    else id = "Purp " + (z + 1);
+                    else if (z > 4)
+                    {
+                        id = "Purp " + z;
+                        card.health = z + 5;
+                        if (z == 5) card.attack = 0;
+                        else card.attack = -z + 6;
+                    }
+                    else
+                    {
+                        id = "Purp " + (z + 1);
+                        temp.GetComponent<ClanCard>().health = z + 6;
+                        card.attack = -z + 3;
+                    }
                     temp.transform.position = GameObject.FindGameObjectWithTag("PurpDeck").transform.position;
                     temp.transform.parent = GameObject.FindGameObjectWithTag("PurpDeck").transform;
                     temp.transform.rotation = GameObject.FindGameObjectWithTag("PurpDeck").transform.rotation;
@@ -83,9 +110,22 @@ public class CardGeneration : MonoBehaviour
                     {
                         id = "Red Chieftain";
                         temp.GetComponent<SpriteRenderer>().sortingOrder = 5;
+                        card.health = 10;
+                        card.attack = 0;
                     }
-                    else if (z > 4) id = "Red " + z;
-                    else id = "Red " + (z + 1);
+                    else if (z > 4)
+                    {
+                        id = "Red " + z;
+                        card.health = z + 5;
+                        if (z == 5) card.attack = 0;
+                        else card.attack = -z + 6;
+                    }
+                    else
+                    {
+                        id = "Red " + (z + 1);
+                        temp.GetComponent<ClanCard>().health = z + 6;
+                        card.attack = -z + 3;
+                    }
                     temp.transform.position = GameObject.FindGameObjectWithTag("RedDeck").transform.position;
                     temp.transform.parent = GameObject.FindGameObjectWithTag("RedDeck").transform;
                     temp.transform.rotation = GameObject.FindGameObjectWithTag("RedDeck").transform.rotation;
@@ -97,9 +137,22 @@ public class CardGeneration : MonoBehaviour
                     {
                         id = "Yell Chieftain";
                         temp.GetComponent<SpriteRenderer>().sortingOrder = 5;
+                        card.health = 10;
+                        card.attack = 0;
                     }
-                    else if (z > 4) id = "Yell " + z;
-                    else id = "Yell " + (z + 1);
+                    else if (z > 4)
+                    {
+                        id = "Yell " + z;
+                        card.health = z + 5;
+                        if (z == 5) card.attack = 0;
+                        else card.attack = -z + 6;
+                    }
+                    else
+                    {
+                        id = "Yell " + (z + 1);
+                        temp.GetComponent<ClanCard>().health = z + 6;
+                        card.attack = -z + 3;
+                    }
                     temp.transform.position = GameObject.FindGameObjectWithTag("YellDeck").transform.position;
                     temp.transform.parent = GameObject.FindGameObjectWithTag("YellDeck").transform;
                     temp.transform.rotation = GameObject.FindGameObjectWithTag("YellDeck").transform.rotation;
