@@ -190,9 +190,9 @@ public class CardGeneration : MonoBehaviour
             secInd++;
             equipDeck.Add(temp);
             temp.transform.parent = GameObject.FindGameObjectWithTag("EquipDeck").transform;
-        }        
-
-        for(int i = 0; i<4; i++)
+        }
+        GameObject parent = GameObject.FindGameObjectWithTag("ElixirDeck");
+        for (int i = 0; i<4; i++)
         {
             GameObject tempMending = Instantiate(eMendingPrefab);
             tempMending.GetComponent<SpriteRenderer>().sprite = elixirSprites[0];
@@ -210,11 +210,17 @@ public class CardGeneration : MonoBehaviour
             tempEnergy.transform.localScale = new Vector3(1, 0.8f, 1);
             tempTainted.transform.localScale = new Vector3(1, 0.8f, 1);
 
+            
+
+            tempEnergy.transform.parent = parent.transform;
+            tempMending.transform.parent = parent.transform;
+            tempTainted.transform.parent = parent.transform;
+
             elixirDeck.Add(tempMending);
             elixirDeck.Add(tempEnergy);
             elixirDeck.Add(tempTainted);
         }
-        Instantiate(DeckCover);
+        Instantiate(DeckCover, parent.transform);
         DeckCover.transform.localScale = new Vector3(17,19,1);
     }
     void Start()
