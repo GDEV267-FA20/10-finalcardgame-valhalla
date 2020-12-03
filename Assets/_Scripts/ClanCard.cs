@@ -42,6 +42,7 @@ public class ClanCard : MonoBehaviour
         isDead = false;
         inPlay = false;
         faceUp = true;
+
     }
 
     void Update()

@@ -10,12 +10,11 @@ public class MainHand : MonoBehaviour
 
     public Slider healthSlider;
 
-    private HealthIndecator sliderCode;
 
     void Start()
     {
         valhalla = Camera.main.GetComponent<Valhalla>();
-        sliderCode = healthSlider.gameObject.GetComponent<HealthIndecator>();
+        
     }
 
     public void Attack()
@@ -31,9 +30,17 @@ public class MainHand : MonoBehaviour
         this.clanCard.GetComponent<ClanCard>().Health -= damage;
         Debug.Log(this.clanCard.GetComponent<ClanCard>().Health);
 
-        sliderCode.Health = damage * -1;
-        
+        healthSlider.value = this.clanCard.GetComponent<ClanCard>().Health;
+
+
     }
+
+    public void SetMaxHealthSlider()
+    {
+        healthSlider.maxValue = clanCard.GetComponent<ClanCard>().Health;
+    }
+
+
 
     // Update is called once per frame
     void Update()
