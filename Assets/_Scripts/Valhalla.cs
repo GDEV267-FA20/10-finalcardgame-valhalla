@@ -37,6 +37,10 @@ public class Valhalla : MonoBehaviour
     GameObject red;
     GameObject yellow;
 
+    public Slider[] healthSliders;
+    
+
+
     [Header("all you bruv")]
     public List<GameObject> players;
 
@@ -277,18 +281,24 @@ public class Valhalla : MonoBehaviour
             param = 1;
             players[1].transform.position = new Vector2(-1, -5);
             players[1].transform.eulerAngles = Vector3.zero;
+
+            
         }
         else if(id == "RedDeck")
         {
             param = 2;
             players[2].transform.position = new Vector2(10,-5);
             players[2].transform.eulerAngles = Vector3.zero;
+
+           
         }
         else if(id == "YellDeck")
         {
             param = 3;
             players[3].transform.position = new Vector2(-1,-5);
             players[3].transform.eulerAngles = Vector3.zero;
+
+            
         }
 
 

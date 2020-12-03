@@ -42,7 +42,9 @@ public class HealthIndecator : MonoBehaviour
             }
             else // put something here when you want this to do something when the player dies
             {
-                Debug.Log("===Death===");
+                slider.value = 0;
+                
+                
             }
             
         }

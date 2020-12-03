@@ -11,11 +11,31 @@ public class ClanCard : MonoBehaviour
     GameObject cover;
     public bool isDead;
     public bool inPlay;
-    public int health;
+    int health;
     public int attack;
 
     [Header("Put in")]
     public GameObject FaceDownPrefab;
+
+
+
+    public int Health
+    { 
+        get
+        {
+            return health;
+        }
+        set
+        {
+            health = value;
+
+
+
+
+        }
+    }
+
+
 
     void Start()
     {
