@@ -128,9 +128,7 @@ public class Valhalla : MonoBehaviour
         ResetAttackButtons();
         attackerInt++;
         if (attackerInt >= 4) attackerInt = 0;
-
         if (players[attackerInt].GetComponent<MainHand>().clanCard == null) NextTurn();
-
         SetAttackButtons(players[attackerInt]);
     }
 
