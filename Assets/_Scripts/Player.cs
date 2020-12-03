@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerTypes
+{
+    man,
+    machine
+}
+
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    PlayerTypes playerType = PlayerTypes.man;
+
+    public void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Attack()
     {
-        
+
     }
 }

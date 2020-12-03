@@ -9,6 +9,7 @@ public class ClanCard : MonoBehaviour
     int sortingLayer;
     bool faceUp;
     GameObject cover;
+    public bool isDead;
     public bool inPlay;
     public int health;
     public int attack;
@@ -18,6 +19,7 @@ public class ClanCard : MonoBehaviour
 
     void Start()
     {
+        isDead = false;
         inPlay = false;
         faceUp = true;
     }
