@@ -31,14 +31,13 @@ public class MainHand : MonoBehaviour
         Debug.Log(this.clanCard.GetComponent<ClanCard>().Health);
 
         healthSlider.value = this.clanCard.GetComponent<ClanCard>().Health;
-
-
     }
 
     public void SetMaxHealthSlider()
     {
         healthSlider.maxValue = clanCard.GetComponent<ClanCard>().Health;
         healthSlider.value = healthSlider.maxValue;
+        healthSlider.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(179 - ((14 - healthSlider.maxValue) * 12.5f), 20.2f);
     }
 
 
