@@ -364,7 +364,7 @@ public class Valhalla : MonoBehaviour
         playedCard.GetComponent<ClanCard>().inPlay = true;
 
         player.GetComponent<MainHand>().SetMaxHealthSlider(); // sets the healthbar max value to the starting health
-
+        
         GameObject tempCover = Instantiate(CardGeneration.S.DeckCover, playedCard.transform);
         tempCover.transform.localScale = new Vector2(16, 23);
         tempCover.transform.eulerAngles = player.transform.eulerAngles;

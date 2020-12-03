@@ -38,6 +38,7 @@ public class MainHand : MonoBehaviour
     public void SetMaxHealthSlider()
     {
         healthSlider.maxValue = clanCard.GetComponent<ClanCard>().Health;
+        healthSlider.value = healthSlider.maxValue;
     }
 
 
