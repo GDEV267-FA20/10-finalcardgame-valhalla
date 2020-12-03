@@ -64,6 +64,23 @@ public class Valhalla : MonoBehaviour
         LayoutGame();
     }
 
+
+    void Update()
+    {
+        if (players[0].GetComponent<MainHand>().clanCard == null) selectButtons.transform.Find("Blue").gameObject.SetActive(true);
+        else selectButtons.transform.Find("Blue").gameObject.SetActive(false);
+
+        if (players[1].GetComponent<MainHand>().clanCard == null) selectButtons.transform.Find("Purp").gameObject.SetActive(true);
+        else selectButtons.transform.Find("Purp").gameObject.SetActive(false);
+
+        if (players[2].GetComponent<MainHand>().clanCard == null) selectButtons.transform.Find("Red").gameObject.SetActive(true);
+        else selectButtons.transform.Find("Red").gameObject.SetActive(false);
+
+        if (players[3].GetComponent<MainHand>().clanCard == null) selectButtons.transform.Find("Yell").gameObject.SetActive(true);
+        else selectButtons.transform.Find("Yell").gameObject.SetActive(false);
+    }
+
+
     void FixedUpdate()
     {
         if (players[0].GetComponent<MainHand>().clanCard == null) blue.SetActive(false);
@@ -128,10 +145,8 @@ public class Valhalla : MonoBehaviour
         ResetAttackButtons();
         attackerInt++;
         if (attackerInt >= 4) attackerInt = 0;
-
         if (players[attackerInt].GetComponent<MainHand>().clanCard == null) NextTurn();
-
-        SetAttackButtons(players[attackerInt]);
+        SetAttackButtons(players[attackerInt]);        
     }
 
     void ResetAttackButtons()
@@ -141,15 +156,13 @@ public class Valhalla : MonoBehaviour
             child.GetComponent<Button>().image.color = Color.white;
             child.transform.GetChild(0).gameObject.GetComponent<Text>().color = Color.white;
             child.gameObject.SetActive(false);
-        }
+        }        
     }
 
 
     void SetAttackButtons(GameObject attacker)
     {
-        
-
-        if(attacker.name == "BLUE")
+        if (attacker.name == "BLUE")
         {
             purple.SetActive(true);
             purple.GetComponent<Button>().image.color = Color.blue;
@@ -197,7 +210,6 @@ public class Valhalla : MonoBehaviour
             blue.GetComponent<Button>().image.color = Color.yellow;
             blue.transform.GetChild(0).gameObject.GetComponent<Text>().color = Color.black;
         }
-        
     }
 
 
@@ -373,25 +385,55 @@ public class Valhalla : MonoBehaviour
         foreach (Transform card in GameObject.FindGameObjectWithTag("BlueDeck").transform)
         {            
             if (card.tag == "cover") card.gameObject.SetActive(true);
-            card.transform.position = GameObject.FindGameObjectWithTag("BlueDeck").transform.position;
+            if (players[0].GetComponent<MainHand>().clanCard != null)
+            {
+                if (card.gameObject.name == players[0].GetComponent<MainHand>().clanCard.name) { }
+            }
+            else
+            {
+                card.transform.position = GameObject.FindGameObjectWithTag("BlueDeck").transform.position;
+                card.transform.rotation = players[0].transform.rotation;
+            }
         }
         foreach (Transform card in GameObject.FindGameObjectWithTag("PurpDeck").transform)
         {
             if (card.tag == "cover") card.gameObject.SetActive(true);
-            card.transform.position = GameObject.FindGameObjectWithTag("PurpDeck").transform.position;
-            card.transform.rotation = players[1].transform.rotation;
+            if (players[1].GetComponent<MainHand>().clanCard != null)
+            {
+                if (card.gameObject.name == players[1].GetComponent<MainHand>().clanCard.name) { }                
+            }
+            else
+            {
+                card.transform.position = GameObject.FindGameObjectWithTag("PurpDeck").transform.position;
+                card.transform.rotation = players[1].transform.rotation;
+            }
+
         }
         foreach (Transform card in GameObject.FindGameObjectWithTag("RedDeck").transform)
         {
             if (card.tag == "cover") card.gameObject.SetActive(true);
-            card.transform.position = GameObject.FindGameObjectWithTag("RedDeck").transform.position;
-            card.transform.rotation = players[2].transform.rotation;
+            if (players[2].GetComponent<MainHand>().clanCard != null)
+            {
+                if (card.gameObject.name == players[2].GetComponent<MainHand>().clanCard.name) { }                
+            }
+            else
+            {
+                card.transform.position = GameObject.FindGameObjectWithTag("RedDeck").transform.position;
+                card.transform.rotation = players[2].transform.rotation;
+            }
         }
         foreach (Transform card in GameObject.FindGameObjectWithTag("YellDeck").transform)
         {
             if (card.tag == "cover") card.gameObject.SetActive(true);
-            card.transform.position = GameObject.FindGameObjectWithTag("YellDeck").transform.position;
-            card.transform.rotation = players[3].transform.rotation;
+            if(players[3].GetComponent<MainHand>().clanCard != null)
+            {
+                if (card.gameObject.name == players[3].GetComponent<MainHand>().clanCard.name) { }
+            }
+            else
+            {
+                card.transform.position = GameObject.FindGameObjectWithTag("YellDeck").transform.position;
+                card.transform.rotation = players[3].transform.rotation;
+            }
         }
     }
 }
