@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6535388346760121853}
   - component: {fileID: 6535388346760121854}
   m_Layer: 5
-  m_Name: HealthIndecatorPrefab
+  m_Name: HealthIndecatorPrefab_TOM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,10 +137,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6535388346760121840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ebd5abe0cb23584db9b01c4c4a09da5, type: 3}
+  m_Script: {fileID: 11500000, guid: d981241b7062b524a8f23c6bb0a03714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 14
 --- !u!1 &6535388347191239893
 GameObject:
   m_ObjectHideFlags: 0
