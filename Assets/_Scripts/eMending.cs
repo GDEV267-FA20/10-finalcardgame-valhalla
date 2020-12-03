@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class eMending : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    void CardPlayed()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GameObject grandpa = this.transform.parent.transform.parent.gameObject;
+        grandpa.GetComponent<MainHand>().clanCard.GetComponent<ClanCard>().health += 4;
     }
 }
