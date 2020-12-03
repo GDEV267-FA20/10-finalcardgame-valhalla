@@ -25,6 +25,7 @@ public class MainHand : MonoBehaviour
         Debug.Log("start health: "+ this.clanCard.GetComponent<ClanCard>().health + " - " + damage +" mod: "+mod);
         this.clanCard.GetComponent<ClanCard>().health -= damage;
         Debug.Log(this.clanCard.GetComponent<ClanCard>().health);
+        if (this.clanCard.GetComponent<ClanCard>().health <= 0) this.clanCard = null;
     }
 
     // Update is called once per frame
