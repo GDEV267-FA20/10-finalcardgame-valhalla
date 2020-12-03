@@ -30,7 +30,7 @@ public class Valhalla : MonoBehaviour
 
     [Header("For attacking:")]
     public GameObject attackButtons;
-    public static int attackerInt;
+    public int attackerInt;
     bool fired = false;
     GameObject blue;    //attack buttons
     GameObject purple;
@@ -38,7 +38,7 @@ public class Valhalla : MonoBehaviour
     GameObject yellow;
 
     [Header("all you bruv")]
-    public static List<GameObject> players;
+    public List<GameObject> players;
 
     void Awake()
     {
