@@ -7,8 +7,8 @@ public enum GameStates
 {
     startup,
     select,
-    firstTurn,
-    nextTurn
+    playRound,
+    endRound
 }
 
 public class Valhalla : MonoBehaviour
@@ -92,7 +92,7 @@ public class Valhalla : MonoBehaviour
         {
             
 
-            if (player.GetComponent<MainHand>().clanCard == null)
+            if (player.GetComponent<MainHand>().clanCard == null && gameState == GameStates.select)
             {
                 if (player == players[0]) selectButtons.transform.Find("Blue").gameObject.SetActive(true);
                 if (player == players[1]) selectButtons.transform.Find("Purp").gameObject.SetActive(true);
@@ -108,6 +108,7 @@ public class Valhalla : MonoBehaviour
                 if (player == players[3]) selectButtons.transform.Find("Yell").gameObject.SetActive(false);
             }
 
+            if (player.GetComponent<MainHand>().clanCard == null) return;
             GameObject card = player.GetComponent<MainHand>().clanCard;
             card.transform.position = player.transform.position;
             card.transform.eulerAngles = player.transform.eulerAngles;
@@ -126,11 +127,11 @@ public class Valhalla : MonoBehaviour
                     {
                         cover.SetActive(false);
                     }
-                    gameState = GameStates.firstTurn;
+                    gameState = GameStates.playRound;
                 }
                 break;
 
-            case GameStates.firstTurn:
+            case GameStates.playRound:
                 if (fired) return;
                 fired = true;
                 attackerInt = FindFirstAttacker();
@@ -146,7 +147,8 @@ public class Valhalla : MonoBehaviour
         attackerInt++;
         if (attackerInt >= 4) attackerInt = 0;
         if (players[attackerInt].GetComponent<MainHand>().clanCard == null) NextTurn();
-        SetAttackButtons(players[attackerInt]);        
+
+        SetAttackButtons(players[attackerInt]);
     }
 
     void ResetAttackButtons()

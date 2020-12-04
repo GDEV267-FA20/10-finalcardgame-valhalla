@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainHand : MonoBehaviour
 {
     public Valhalla valhalla;
     public GameObject equipCard;
     public GameObject clanCard;
+
+    [Header("all you: ")]
+    public Slider healthSlider;
 
     void Start()
     {
@@ -28,6 +32,7 @@ public class MainHand : MonoBehaviour
         this.clanCard.GetComponent<ClanCard>().health -= damage;
         Debug.Log(this.clanCard.GetComponent<ClanCard>().health);
 
+        healthSlider.value = this.clanCard.GetComponent<ClanCard>().health;
         if (this.clanCard.GetComponent<ClanCard>().health <= 0) this.clanCard = null;
     }
 
