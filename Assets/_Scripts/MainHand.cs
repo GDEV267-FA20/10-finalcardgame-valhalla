@@ -36,6 +36,7 @@ public class MainHand : MonoBehaviour
         healthSlider.value = this.clanCard.GetComponent<ClanCard>().health;
         if (this.clanCard.GetComponent<ClanCard>().health <= 0) this.clanCard = null;
 
+
     }
 
     public void SetMaxHealthSlider()
