@@ -37,15 +37,19 @@ public class Valhalla : MonoBehaviour
     GameObject red;
     GameObject yellow;
 
+    public Slider[] healthSliders;
+    
+
+
     [Header("all you bruv")]
     public List<GameObject> players;
 
     void Awake()
     {
         hands = new List<MainHand>();
-        for(int i = 0; i <4; i++)
+        foreach(GameObject player in players)
         {
-            hands.Add(players[i].GetComponent<MainHand>());
+            hands.Add(player.GetComponent<MainHand>());
         }
         foreach(Transform child in attackButtons.transform)
         {
@@ -117,7 +121,7 @@ public class Valhalla : MonoBehaviour
 
         switch (gameState)
         {
-            case GameStates.startup:
+            case GameStates.startup:                
                 break;
 
             case GameStates.select:
@@ -134,6 +138,11 @@ public class Valhalla : MonoBehaviour
             case GameStates.playRound:
                 if (fired) return;
                 fired = true;
+                foreach(MainHand hand in hands)
+                {
+                    hand.SetMaxHealthSlider(); // sets the healthbar max value to the starting health
+                    hand.healthSlider.gameObject.SetActive(true);
+                }
                 attackerInt = FindFirstAttacker();
                 SetAttackButtons(players[attackerInt]);
                 break;
@@ -249,7 +258,12 @@ public class Valhalla : MonoBehaviour
 
     void LayoutGame()
     {
-        foreach(GameObject player in players)
+        foreach (MainHand hand in hands)
+        {
+            hand.healthSlider.maxValue = 0;
+            hand.healthSlider.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 20.2f);
+        }
+        foreach (GameObject player in players)
         {
             GameObject equipGO = CardGeneration.S.equipDeck[Random.Range(0, 8)];
             Debug.Log(equipGO.name);
@@ -291,18 +305,24 @@ public class Valhalla : MonoBehaviour
             param = 1;
             players[1].transform.position = new Vector2(-1, -5);
             players[1].transform.eulerAngles = Vector3.zero;
+
+            
         }
         else if(id == "RedDeck")
         {
             param = 2;
             players[2].transform.position = new Vector2(10,-5);
             players[2].transform.eulerAngles = Vector3.zero;
+
+           
         }
         else if(id == "YellDeck")
         {
             param = 3;
             players[3].transform.position = new Vector2(-1,-5);
             players[3].transform.eulerAngles = Vector3.zero;
+
+            
         }
 
 
@@ -365,8 +385,8 @@ public class Valhalla : MonoBehaviour
         playedCard.transform.position = player.transform.position;
         playedCard.transform.eulerAngles = player.transform.eulerAngles;
         playedCard.GetComponent<SpriteRenderer>().sortingOrder = player.GetComponent<MainHand>().equipCard.GetComponent<SpriteRenderer>().sortingOrder + 1;
-        playedCard.GetComponent<ClanCard>().inPlay = true;
-
+        playedCard.GetComponent<ClanCard>().inPlay = true;        
+        
         GameObject tempCover = Instantiate(CardGeneration.S.DeckCover, playedCard.transform);
         tempCover.transform.localScale = new Vector2(16, 23);
         tempCover.transform.eulerAngles = player.transform.eulerAngles;
