@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class eMending : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void CardPlayed (ClanCard currentDelegate)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        currentDelegate.Health += 4;
+        if(currentDelegate.Health > currentDelegate.maxHealth)
+        {
+            currentDelegate.Health = currentDelegate.maxHealth;
+        }
     }
 }
