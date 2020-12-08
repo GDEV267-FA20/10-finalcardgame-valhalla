@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8815298952466340334}
   - component: {fileID: 1481194244128241356}
   m_Layer: 0
-  m_Name: eTaintedPrefab
-  m_TagString: Untagged
+  m_Name: eTaintedPrefab_KEN
+  m_TagString: Tainted
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

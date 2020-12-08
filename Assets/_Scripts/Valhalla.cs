@@ -7,15 +7,35 @@ public enum GameStates
 {
     startup,
     select,
-    firstTurn,
-    nextTurn
+    preRound,
+    playFirstRound,
+    playRegRound,
+    endRound
 }
 
 public class Valhalla : MonoBehaviour
 {
     GameStates gameState = GameStates.startup;
-    List<MainHand> hands;
+    public List<MainHand> hands;
 
+    [Header("all you bruv")]
+    public List<GameObject> players;
+    public GameObject ElixirMenu;
+    [HideInInspector]
+    public Text mending;
+    public Text energy;
+    public Text tainted;
+    public GameObject mTint;
+    public GameObject eTint;
+    public GameObject tTint;
+
+    [Header("For End of Round: ")]
+    public GameObject winMenu;
+    public GameObject scavButtons;
+    [HideInInspector]
+    public int dead;
+    public int lastAlive;
+    bool fired1 = false;
     
     [Header("For Delegate Menu Selection:")]
     public float[] position;
@@ -36,16 +56,14 @@ public class Valhalla : MonoBehaviour
     GameObject purple;
     GameObject red;
     GameObject yellow;
-
-    [Header("all you bruv")]
-    public List<GameObject> players;
+    
 
     void Awake()
     {
         hands = new List<MainHand>();
-        for(int i = 0; i <4; i++)
+        foreach(GameObject player in players)
         {
-            hands.Add(players[i].GetComponent<MainHand>());
+            hands.Add(player.GetComponent<MainHand>());
         }
         foreach(Transform child in attackButtons.transform)
         {
@@ -53,6 +71,17 @@ public class Valhalla : MonoBehaviour
         }
         menuBG.SetActive(false);
         revealCovers = new List<GameObject>();
+
+        mending = ElixirMenu.transform.Find("mendingCount").GetComponent<Text>();
+        energy = ElixirMenu.transform.Find("energyCount").GetComponent<Text>();
+        tainted = ElixirMenu.transform.Find("taintedCount").GetComponent<Text>();
+
+        mTint = ElixirMenu.transform.Find("mTint").gameObject;
+        eTint = ElixirMenu.transform.Find("eTint").gameObject;
+        tTint = ElixirMenu.transform.Find("tTint").gameObject;
+
+        dead = 0;
+        lastAlive = -1;
     }
     void Start()
     {
@@ -64,6 +93,15 @@ public class Valhalla : MonoBehaviour
         LayoutGame();
     }
 
+    void Update()
+    {
+        if (dead == 3)
+        {
+            dead = 0;
+            EndRound();
+        }
+    }
+
     void FixedUpdate()
     {
         if (players[0].GetComponent<MainHand>().clanCard == null) blue.SetActive(false);
@@ -71,35 +109,38 @@ public class Valhalla : MonoBehaviour
         if (players[2].GetComponent<MainHand>().clanCard == null) red.SetActive(false);
         if (players[3].GetComponent<MainHand>().clanCard == null) yellow.SetActive(false);
 
+        //Debug.Log(gameState);
+
         foreach (GameObject player in players)
-        {
-            
+        {            
+            if(gameState == GameStates.select)
+            { 
+                if (player.GetComponent<MainHand>().clanCard == null)
+                {
+                    if (player == players[0]) selectButtons.transform.Find("Blue").gameObject.SetActive(true);
+                    if (player == players[1]) selectButtons.transform.Find("Purp").gameObject.SetActive(true);
+                    if (player == players[2]) selectButtons.transform.Find("Red").gameObject.SetActive(true);
+                    if (player == players[3]) selectButtons.transform.Find("Yell").gameObject.SetActive(true);
+                }
+                else
+                {
+                    if (player == players[0]) selectButtons.transform.Find("Blue").gameObject.SetActive(false);
+                    if (player == players[1]) selectButtons.transform.Find("Purp").gameObject.SetActive(false);
+                    if (player == players[2]) selectButtons.transform.Find("Red").gameObject.SetActive(false);
+                    if (player == players[3]) selectButtons.transform.Find("Yell").gameObject.SetActive(false);
+                }
+            } 
 
-            if (player.GetComponent<MainHand>().clanCard == null)
-            {
-                if (player == players[0]) selectButtons.transform.Find("Blue").gameObject.SetActive(true);
-                if (player == players[1]) selectButtons.transform.Find("Purp").gameObject.SetActive(true);
-                if (player == players[2]) selectButtons.transform.Find("Red").gameObject.SetActive(true);
-                if (player == players[3]) selectButtons.transform.Find("Yell").gameObject.SetActive(true);
-                return;
-            }
-            else
-            {
-                if (player == players[0]) selectButtons.transform.Find("Blue").gameObject.SetActive(false);
-                if (player == players[1]) selectButtons.transform.Find("Purp").gameObject.SetActive(false);
-                if (player == players[2]) selectButtons.transform.Find("Red").gameObject.SetActive(false);
-                if (player == players[3]) selectButtons.transform.Find("Yell").gameObject.SetActive(false);
-            }
-
+            if (player.GetComponent<MainHand>().clanCard == null) return;
             GameObject card = player.GetComponent<MainHand>().clanCard;
             card.transform.position = player.transform.position;
             card.transform.eulerAngles = player.transform.eulerAngles;
             card.GetComponent<SpriteRenderer>().sortingOrder = player.GetComponent<MainHand>().equipCard.GetComponent<SpriteRenderer>().sortingOrder + 1;
-        }
+        }       
 
         switch (gameState)
         {
-            case GameStates.startup:
+            case GameStates.startup:                
                 break;
 
             case GameStates.select:
@@ -109,18 +150,98 @@ public class Valhalla : MonoBehaviour
                     {
                         cover.SetActive(false);
                     }
-                    gameState = GameStates.firstTurn;
+                    gameState = GameStates.playFirstRound;
                 }
                 break;
 
-            case GameStates.firstTurn:
+            case GameStates.playFirstRound:
                 if (fired) return;
                 fired = true;
+                foreach(MainHand hand in hands)
+                {
+                    hand.SetMaxHealthSlider(); // sets the healthbar max value to the starting health
+                    hand.healthSlider.gameObject.SetActive(true);
+                }
                 attackerInt = FindFirstAttacker();
                 SetAttackButtons(players[attackerInt]);
                 break;
 
+            case GameStates.playRegRound:
+                if (fired1) return;
+                fired1 = true;
+                foreach (MainHand hand in hands)
+                {
+                    hand.SetMaxHealthSlider(); // sets the healthbar max value to the starting health
+                    hand.healthSlider.gameObject.SetActive(true);
+                }                
+                SetAttackButtons(players[lastAlive]);
+                break;
+
+            case GameStates.endRound:
+                break;
+
+            case GameStates.preRound:
+                selectButtons.SetActive(true);
+                selectButtons.transform.Find("Blue").gameObject.SetActive(false);
+                selectButtons.transform.Find("Purp").gameObject.SetActive(false);
+                selectButtons.transform.Find("Red").gameObject.SetActive(false);
+                selectButtons.transform.Find("Yell").gameObject.SetActive(false);
+
+                if (hands[0].clanCard == null)
+                {
+                    selectButtons.transform.Find("Blue").gameObject.SetActive(true);
+                }
+                if (hands[1].clanCard == null)
+                {
+                    selectButtons.transform.Find("Purp").gameObject.SetActive(true);
+                }
+                if (hands[2].clanCard == null)
+                {
+                    selectButtons.transform.Find("Red").gameObject.SetActive(true);
+                }
+                if (hands[3].clanCard == null)
+                {
+                    selectButtons.transform.Find("Yell").gameObject.SetActive(true);
+                }                  
+
+                if (hands[0].clanCard != null && hands[1].clanCard != null && hands[2].clanCard != null && hands[3].clanCard != null)
+                {
+                    gameState = GameStates.playRegRound;
+                }
+                break;
         }
+    }
+
+    public void FillEquipment()
+    {
+        foreach(MainHand hand in hands)
+        {
+            int i = 0;
+            if(hand.equipCard == null)
+            {
+                GameObject equipGO = CardGeneration.S.equipDeck[Random.Range(0, 8)];
+                while (equipGO.GetComponent<EquipCard>().InPlay == true)
+                {
+                    equipGO = CardGeneration.S.equipDeck[Random.Range(0, 8)];
+                }
+                equipGO.GetComponent<EquipCard>().InPlay = true;
+
+                equipGO.transform.position = players[i].transform.position;
+                equipGO.transform.rotation = players[i].transform.rotation;
+                hand.equipCard = equipGO;                
+            }
+        }
+    }
+  
+    void EndRound()
+    {
+        if (hands[0].clanCard != null) lastAlive = 0;
+        if (hands[1].clanCard != null) lastAlive = 1;
+        if (hands[2].clanCard != null) lastAlive = 2;
+        if (hands[3].clanCard != null) lastAlive = 3;
+
+        gameState = GameStates.endRound;
+        winMenu.SetActive(true);
     }
 
     public void NextTurn()
@@ -128,9 +249,7 @@ public class Valhalla : MonoBehaviour
         ResetAttackButtons();
         attackerInt++;
         if (attackerInt >= 4) attackerInt = 0;
-
         if (players[attackerInt].GetComponent<MainHand>().clanCard == null) NextTurn();
-
         SetAttackButtons(players[attackerInt]);
     }
 
@@ -141,15 +260,13 @@ public class Valhalla : MonoBehaviour
             child.GetComponent<Button>().image.color = Color.white;
             child.transform.GetChild(0).gameObject.GetComponent<Text>().color = Color.white;
             child.gameObject.SetActive(false);
-        }
+        }        
     }
 
 
     void SetAttackButtons(GameObject attacker)
     {
-        
-
-        if(attacker.name == "BLUE")
+        if (attacker.name == "BLUE")
         {
             purple.SetActive(true);
             purple.GetComponent<Button>().image.color = Color.blue;
@@ -197,7 +314,6 @@ public class Valhalla : MonoBehaviour
             blue.GetComponent<Button>().image.color = Color.yellow;
             blue.transform.GetChild(0).gameObject.GetComponent<Text>().color = Color.black;
         }
-        
     }
 
 
@@ -235,10 +351,14 @@ public class Valhalla : MonoBehaviour
 
     void LayoutGame()
     {
-        foreach(GameObject player in players)
+        foreach (MainHand hand in hands)
+        {
+            hand.healthSlider.maxValue = 0;
+            hand.healthSlider.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 20.2f);
+        }
+        foreach (GameObject player in players)
         {
             GameObject equipGO = CardGeneration.S.equipDeck[Random.Range(0, 8)];
-            Debug.Log(equipGO.name);
             while(equipGO.GetComponent<EquipCard>().InPlay == true)
             {
                 equipGO = CardGeneration.S.equipDeck[Random.Range(0, 8)];
@@ -270,25 +390,31 @@ public class Valhalla : MonoBehaviour
 
     public void SelectMenu(string id)
     {
-        int param = 0; //for sequential function 'SetButtons'
+        int param = 0; //for sequential function 'SetCardButtons'
         archID = id;
         if (id == "PurpDeck")
         {
             param = 1;
             players[1].transform.position = new Vector2(-1, -5);
             players[1].transform.eulerAngles = Vector3.zero;
+
+            
         }
         else if(id == "RedDeck")
         {
             param = 2;
             players[2].transform.position = new Vector2(10,-5);
             players[2].transform.eulerAngles = Vector3.zero;
+
+           
         }
         else if(id == "YellDeck")
         {
             param = 3;
             players[3].transform.position = new Vector2(-1,-5);
             players[3].transform.eulerAngles = Vector3.zero;
+
+            
         }
 
 
@@ -314,10 +440,10 @@ public class Valhalla : MonoBehaviour
                 z++;
             }
         }
-        SetButtons(param);
+        SetCardButtons(param);
     }
 
-    public void SetButtons(int player)
+    public void SetCardButtons(int player)
     {
         ClanDeck deck = players[player].transform.GetChild(0).gameObject.GetComponent<ClanDeck>();
         topRow[4].SetActive(false);
@@ -351,8 +477,8 @@ public class Valhalla : MonoBehaviour
         playedCard.transform.position = player.transform.position;
         playedCard.transform.eulerAngles = player.transform.eulerAngles;
         playedCard.GetComponent<SpriteRenderer>().sortingOrder = player.GetComponent<MainHand>().equipCard.GetComponent<SpriteRenderer>().sortingOrder + 1;
-        playedCard.GetComponent<ClanCard>().inPlay = true;
-
+        playedCard.GetComponent<ClanCard>().inPlay = true;        
+        
         GameObject tempCover = Instantiate(CardGeneration.S.DeckCover, playedCard.transform);
         tempCover.transform.localScale = new Vector2(16, 23);
         tempCover.transform.eulerAngles = player.transform.eulerAngles;
@@ -373,25 +499,95 @@ public class Valhalla : MonoBehaviour
         foreach (Transform card in GameObject.FindGameObjectWithTag("BlueDeck").transform)
         {            
             if (card.tag == "cover") card.gameObject.SetActive(true);
-            card.transform.position = GameObject.FindGameObjectWithTag("BlueDeck").transform.position;
+            if (players[0].GetComponent<MainHand>().clanCard != null)
+            {
+                if (card.gameObject.name == players[0].GetComponent<MainHand>().clanCard.name) { }
+            }
+            else
+            {
+                card.transform.position = GameObject.FindGameObjectWithTag("BlueDeck").transform.position;
+                card.transform.rotation = players[0].transform.rotation;
+            }
         }
         foreach (Transform card in GameObject.FindGameObjectWithTag("PurpDeck").transform)
         {
             if (card.tag == "cover") card.gameObject.SetActive(true);
-            card.transform.position = GameObject.FindGameObjectWithTag("PurpDeck").transform.position;
-            card.transform.rotation = players[1].transform.rotation;
+            if (players[1].GetComponent<MainHand>().clanCard != null)
+            {
+                if (card.gameObject.name == players[1].GetComponent<MainHand>().clanCard.name) { }                
+            }
+            else
+            {
+                card.transform.position = GameObject.FindGameObjectWithTag("PurpDeck").transform.position;
+                card.transform.rotation = players[1].transform.rotation;
+            }
+
         }
         foreach (Transform card in GameObject.FindGameObjectWithTag("RedDeck").transform)
         {
             if (card.tag == "cover") card.gameObject.SetActive(true);
-            card.transform.position = GameObject.FindGameObjectWithTag("RedDeck").transform.position;
-            card.transform.rotation = players[2].transform.rotation;
+            if (players[2].GetComponent<MainHand>().clanCard != null)
+            {
+                if (card.gameObject.name == players[2].GetComponent<MainHand>().clanCard.name) { }                
+            }
+            else
+            {
+                card.transform.position = GameObject.FindGameObjectWithTag("RedDeck").transform.position;
+                card.transform.rotation = players[2].transform.rotation;
+            }
         }
         foreach (Transform card in GameObject.FindGameObjectWithTag("YellDeck").transform)
         {
             if (card.tag == "cover") card.gameObject.SetActive(true);
-            card.transform.position = GameObject.FindGameObjectWithTag("YellDeck").transform.position;
-            card.transform.rotation = players[3].transform.rotation;
+            if(players[3].GetComponent<MainHand>().clanCard != null)
+            {
+                if (card.gameObject.name == players[3].GetComponent<MainHand>().clanCard.name) { }
+            }
+            else
+            {
+                card.transform.position = GameObject.FindGameObjectWithTag("YellDeck").transform.position;
+                card.transform.rotation = players[3].transform.rotation;
+            }
         }
+    }    
+
+    public void EquipCleanup()
+    {
+        if (lastAlive != 0 && hands[0].equipCard != null)
+        {
+            hands[0].equipCard.transform.position = new Vector3(0, 0, -20);
+            hands[0].equipCard.transform.eulerAngles = Vector3.zero;
+            hands[0].equipCard = null;
+        }
+        if (lastAlive != 1 && hands[1].equipCard != null)
+        {
+            hands[1].equipCard.transform.position = new Vector3(0, 0, -20);
+            hands[1].equipCard.transform.eulerAngles = Vector3.zero;
+            hands[1].equipCard = null;
+        }
+        if (lastAlive != 2 && hands[2].equipCard != null)
+        {
+            hands[2].equipCard.transform.position = new Vector3(0, 0, -20);
+            hands[2].equipCard.transform.eulerAngles = Vector3.zero;
+            hands[2].equipCard = null;
+        }
+        if (lastAlive != 3 && hands[3].equipCard != null)
+        {
+            hands[3].equipCard.transform.position = new Vector3(0, 0, -20);
+            hands[3].equipCard.transform.eulerAngles = Vector3.zero;
+            hands[3].equipCard = null;
+        }
+        gameState = GameStates.preRound;
+    }
+
+    public void DrawElixir()
+    {
+        GameObject elix = CardGeneration.S.elixirDeck[Random.Range(0, 11)];
+        hands[lastAlive].elixirs.Add(elix);
+        
+        if (elix.tag == "Mending") hands[lastAlive].mend.Add(elix);
+        if (elix.tag == "Energy") hands[lastAlive].ener.Add(elix);
+        if (elix.tag == "Tainted") hands[lastAlive].tain.Add(elix);
+        EquipCleanup();
     }
 }

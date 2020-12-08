@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthIndecator : MonoBehaviour
+public class HealthIndecator : MonoBehaviour // Indicator 
 {
 
     private Slider slider;
@@ -42,7 +42,9 @@ public class HealthIndecator : MonoBehaviour
             }
             else // put something here when you want this to do something when the player dies
             {
-                Debug.Log("===Death===");
+                slider.value = 0;
+                
+                
             }
             
         }

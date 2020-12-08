@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class eTainted : MonoBehaviour
 {
-    void CardPlayed()
+    // Start is called before the first frame update
+    void Start()
     {
+        
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }

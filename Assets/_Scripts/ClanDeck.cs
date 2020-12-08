@@ -101,55 +101,55 @@ public class ClanDeck : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (bladedancer.health <= 0)
+        if (bladedancer.Health <= 0)
         {
             bladedancer.isDead = true;
             bladedancer.GetComponent<SpriteRenderer>().sprite = null;
             parent.clanCard = null;
         }
-        if (beserker.health <= 0)
+        if (beserker.Health <= 0)
         {
             beserker.isDead = true;
             beserker.GetComponent<SpriteRenderer>().sprite = null;
             parent.clanCard = null;
         }
-        if (ranger.health <= 0)
+        if (ranger.Health <= 0)
         {
             ranger.isDead = true;
             ranger.GetComponent<SpriteRenderer>().sprite = null;
             parent.clanCard = null;
         }
-        if (warrior.health <= 0)
+        if (warrior.Health <= 0)
         {
             warrior.isDead = true;
             warrior.GetComponent<SpriteRenderer>().sprite = null;
             parent.clanCard = null;
         }
-        if (sureshot.health <= 0)
+        if (sureshot.Health <= 0)
         {
             sureshot.isDead = true;
             sureshot.GetComponent<SpriteRenderer>().sprite = null;
             parent.clanCard = null;
         }
-        if(headsman.health <= 0)
+        if(headsman.Health <= 0)
         {
             headsman.isDead = true;
             headsman.GetComponent<SpriteRenderer>().sprite = null;
             parent.clanCard = null;
         }
-        if(brute.health <= 0)
+        if(brute.Health <= 0)
         {
             brute.isDead = true;
             brute.GetComponent<SpriteRenderer>().sprite = null;
             parent.clanCard = null;
         }
-        if(shieldmaiden.health <= 0)
+        if(shieldmaiden.Health <= 0)
         {
             shieldmaiden.isDead = true;
             shieldmaiden.GetComponent<SpriteRenderer>().sprite = null;
             parent.clanCard = null;
         }
-        if(goliath.health <= 0)
+        if(goliath.Health <= 0)
         {
             goliath.isDead = true;
             goliath.GetComponent<SpriteRenderer>().sprite = null;
