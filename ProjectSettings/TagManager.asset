@@ -11,6 +11,9 @@ TagManager:
   - EquipDeck
   - cover
   - ElixirDeck
+  - Mending
+  - Energy
+  - Tainted
   layers:
   - Default
   - TransparentFX
