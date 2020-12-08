@@ -56,20 +56,20 @@ public class CardGeneration : MonoBehaviour
                     {
                         id = "Blue Chieftain";
                         temp.GetComponent<SpriteRenderer>().sortingOrder = 5;
-                        card.health = 10;
+                        card.Health = 10;
                         card.attack = 0;
                     }
                     else if (z > 4)
                     {
                         id = "Blue " + z;
-                        card.health = z + 5;
+                        card.Health = z + 5;
                         if (z == 5) card.attack = 0;
                         else card.attack = -z + 6;
                     }
                     else
                     {
                         id = "Blue " + (z + 1);
-                        temp.GetComponent<ClanCard>().health = z + 6;
+                        temp.GetComponent<ClanCard>().Health = z + 6;
                         card.attack = -z + 3;
                     }
                     temp.transform.position = GameObject.FindGameObjectWithTag("BlueDeck").transform.position;
@@ -83,20 +83,20 @@ public class CardGeneration : MonoBehaviour
                     {
                         id = "Purp Chieftain";
                         temp.GetComponent<SpriteRenderer>().sortingOrder = 5;
-                        card.health = 10;
+                        card.Health = 10;
                         card.attack = 0;
                     }
                     else if (z > 4)
                     {
                         id = "Purp " + z;
-                        card.health = z + 5;
+                        card.Health = z + 5;
                         if (z == 5) card.attack = 0;
                         else card.attack = -z + 6;
                     }
                     else
                     {
                         id = "Purp " + (z + 1);
-                        temp.GetComponent<ClanCard>().health = z + 6;
+                        temp.GetComponent<ClanCard>().Health = z + 6;
                         card.attack = -z + 3;
                     }
                     temp.transform.position = GameObject.FindGameObjectWithTag("PurpDeck").transform.position;
@@ -110,20 +110,20 @@ public class CardGeneration : MonoBehaviour
                     {
                         id = "Red Chieftain";
                         temp.GetComponent<SpriteRenderer>().sortingOrder = 5;
-                        card.health = 10;
+                        card.Health = 10;
                         card.attack = 0;
                     }
                     else if (z > 4)
                     {
                         id = "Red " + z;
-                        card.health = z + 5;
+                        card.Health = z + 5;
                         if (z == 5) card.attack = 0;
                         else card.attack = -z + 6;
                     }
                     else
                     {
                         id = "Red " + (z + 1);
-                        temp.GetComponent<ClanCard>().health = z + 6;
+                        temp.GetComponent<ClanCard>().Health = z + 6;
                         card.attack = -z + 3;
                     }
                     temp.transform.position = GameObject.FindGameObjectWithTag("RedDeck").transform.position;
@@ -137,20 +137,20 @@ public class CardGeneration : MonoBehaviour
                     {
                         id = "Yell Chieftain";
                         temp.GetComponent<SpriteRenderer>().sortingOrder = 5;
-                        card.health = 10;
+                        card.Health = 10;
                         card.attack = 0;
                     }
                     else if (z > 4)
                     {
                         id = "Yell " + z;
-                        card.health = z + 5;
+                        card.Health = z + 5;
                         if (z == 5) card.attack = 0;
                         else card.attack = -z + 6;
                     }
                     else
                     {
                         id = "Yell " + (z + 1);
-                        temp.GetComponent<ClanCard>().health = z + 6;
+                        temp.GetComponent<ClanCard>().Health = z + 6;
                         card.attack = -z + 3;
                     }
                     temp.transform.position = GameObject.FindGameObjectWithTag("YellDeck").transform.position;
