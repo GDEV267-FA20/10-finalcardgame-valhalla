@@ -1874,6 +1874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7eb4f425dc807d438e0155e5aa503e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deck: []
   bladedancer: {fileID: 0}
   beserker: {fileID: 0}
   ranger: {fileID: 0}
@@ -2111,6 +2112,13 @@ MonoBehaviour:
   - {fileID: 1524519132}
   attackButtons: {fileID: 245774589}
   attackerInt: 0
+  blue: {fileID: 0}
+  purple: {fileID: 0}
+  red: {fileID: 0}
+  yellow: {fileID: 0}
+  elixerEngergy: 0
+  turnToSkip: -1
+  taintedElixBool: 0
 --- !u!1 &438351265
 GameObject:
   m_ObjectHideFlags: 0
@@ -2237,6 +2245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7eb4f425dc807d438e0155e5aa503e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deck: []
   bladedancer: {fileID: 0}
   beserker: {fileID: 0}
   ranger: {fileID: 0}
@@ -3716,6 +3725,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
         m_MethodName: NextTurn
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 430312836}
+        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
+        m_MethodName: SetTainted
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6534,6 +6555,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 430312836}
+        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
+        m_MethodName: SetTainted
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1260953086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6698,6 +6731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7eb4f425dc807d438e0155e5aa503e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deck: []
   bladedancer: {fileID: 0}
   beserker: {fileID: 0}
   ranger: {fileID: 0}
@@ -7603,6 +7637,30 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
         m_MethodName: SelectCard
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 430312836}
+        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
+        m_MethodName: UseTaintedElixer
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9258,6 +9316,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 430312836}
+        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
+        m_MethodName: UseEnergyElixer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1836829110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9555,6 +9625,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 430312836}
+        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
+        m_MethodName: SetTainted
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -10660,6 +10742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7eb4f425dc807d438e0155e5aa503e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deck: []
   bladedancer: {fileID: 0}
   beserker: {fileID: 0}
   ranger: {fileID: 0}
@@ -10788,6 +10871,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 430312836}
+        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
+        m_MethodName: SetTainted
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
