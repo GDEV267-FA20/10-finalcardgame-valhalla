@@ -10,6 +10,16 @@ public class eMending : MonoBehaviour
 
     }
 
+
+    public void Mend()
+    { 
+    //    this.gameObject.transform.parent.GetComponent<MainHand>().clanCard.GetComponent<ClanCard>().Health += 4;
+    //    if(this.gameObject.transform.parent.GetComponent<MainHand>().clanCard.GetComponent<ClanCard>().Health > this.gameObject.transform.parent.GetComponent<MainHand>().clanCard.GetComponent<ClanCard>().maxHealth)
+    //    {
+    //        this.gameObject.transform.parent.GetComponent<MainHand>().clanCard.GetComponent<ClanCard>().Health = this.gameObject.transform.parent.GetComponent<MainHand>().clanCard.GetComponent<ClanCard>().maxHealth;
+    //    }
+    }
+
     // Update is called once per frame
     void Update()
     {

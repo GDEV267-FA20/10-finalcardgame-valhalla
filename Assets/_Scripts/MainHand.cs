@@ -65,11 +65,30 @@ public class MainHand : MonoBehaviour
         foreach(Transform child in this.transform.GetChild(0))
         {
             child.gameObject.SetActive(false);
-            
-            if(this.name == "BLUE")
+
+            if (this.name == "BLUE")
             {
-                valhalla.blue.SetActive(false);
-                this.transform.GetChild(1).gameObject.SetActive(false);                
+                Destroy(valhalla.blue);
+                this.transform.GetChild(1).gameObject.SetActive(false);
+                this.transform.GetChild(2).transform.position = new Vector2(0, 2);
+            }
+            if (this.name == "PURPLE")
+            {
+                Destroy(valhalla.purple);
+                this.transform.GetChild(1).gameObject.SetActive(false);
+                this.transform.GetChild(2).transform.position = new Vector2(0, 2);
+            }
+            if (this.name == "RED")
+            {
+                Destroy(valhalla.red);
+                this.transform.GetChild(1).gameObject.SetActive(false);
+                this.transform.GetChild(2).transform.position = new Vector2(0, -2);
+            }
+            if (this.name == "YELLOW")
+            {
+                Destroy(valhalla.yellow);
+                this.transform.GetChild(1).gameObject.SetActive(false);
+                this.transform.GetChild(2).transform.position = new Vector2(0, 2);
             }
         }
     }

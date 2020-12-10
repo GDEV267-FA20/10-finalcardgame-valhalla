@@ -12,6 +12,7 @@ public class ClanCard : MonoBehaviour
     public bool isDead;
     public bool inPlay;
     public int health;
+    public int maxHealth;
     public int attack;
 
     [Header("Put in")]
@@ -42,6 +43,8 @@ public class ClanCard : MonoBehaviour
         isDead = false;
         inPlay = false;
         faceUp = true;
+
+        maxHealth = health;
 
     }
 
