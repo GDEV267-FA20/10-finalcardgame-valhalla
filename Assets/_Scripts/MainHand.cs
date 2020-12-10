@@ -38,15 +38,39 @@ public class MainHand : MonoBehaviour
         int damage = 3;
         damage += mod;
         Debug.Log("start health: "+ this.clanCard.GetComponent<ClanCard>().Health + " - " + damage +" mod: "+mod);
-        this.clanCard.GetComponent<ClanCard>().Health -= damage;
-        Debug.Log("New Health: "+ this.clanCard.GetComponent<ClanCard>().Health);
+        if (damage > 0)
+        {
+            this.clanCard.GetComponent<ClanCard>().Health -= damage;
+            Debug.Log("New Health: " + this.clanCard.GetComponent<ClanCard>().Health);
+        }
+        else Debug.Log("Attack fuckin sucked m8, no damage");
+
 
         healthSlider.value = this.clanCard.GetComponent<ClanCard>().Health;
         if (this.clanCard.GetComponent<ClanCard>().Health <= 0)
         {
             this.clanCard = null;
-            valhalla.dead++;
+            valhalla.dead++;            
             Debug.Log("Dead: "+valhalla.dead);
+        }
+        foreach(GameObject player in valhalla.players)
+        {
+            player.transform.GetChild(0).GetComponent<ClanDeck>().CheckHealth();
+            this.transform.GetChild(2).GetComponent<DeathRep>().Check();
+        }
+    }
+    
+    public void PlayerOut()
+    {
+        foreach(Transform child in this.transform.GetChild(0))
+        {
+            child.gameObject.SetActive(false);
+            
+            if(this.name == "BLUE")
+            {
+                valhalla.blue.SetActive(false);
+                this.transform.GetChild(1).gameObject.SetActive(false);                
+            }
         }
     }
 
@@ -70,7 +94,7 @@ public class MainHand : MonoBehaviour
         equipCard.transform.rotation = valhalla.players[lastAlive].transform.rotation;
         valhalla.hands[lastAlive].equipCard = equipCard;
         equipCard = null;
-
+        
         valhalla.EquipCleanup();         
     }
 

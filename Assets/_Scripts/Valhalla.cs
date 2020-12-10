@@ -53,10 +53,10 @@ public class Valhalla : MonoBehaviour
     public GameObject attackButtons;
     public int attackerInt;
     bool trigger = false;
-    GameObject blue;    //attack buttons
-    GameObject purple;
-    GameObject red;
-    GameObject yellow;
+    public GameObject blue;    //attack buttons
+    public GameObject purple;
+    public GameObject red;
+    public GameObject yellow;
     
 
     void Awake()
@@ -220,7 +220,8 @@ public class Valhalla : MonoBehaviour
                 {
                     hand.SetMaxHealthSlider(); // sets the healthbar max value to the starting health
                     hand.healthSlider.gameObject.SetActive(true);
-                }                
+                }
+                ResetAttackButtons();
                 SetAttackButtons(players[lastAlive]);
                 break;
 
@@ -265,16 +266,18 @@ public class Valhalla : MonoBehaviour
         if (hands[2].clanCard != null) lastAlive = 2;
         if (hands[3].clanCard != null) lastAlive = 3;
 
+        trigger2 = false;
+
         gameState = GameStates.endRound;
         winMenu.SetActive(true);
     }
 
     public void NextTurn()
     {
-        ResetAttackButtons();
         attackerInt++;
         if (attackerInt >= 4) attackerInt = 0;
         if (players[attackerInt].GetComponent<MainHand>().clanCard == null) NextTurn();
+        ResetAttackButtons();
         SetAttackButtons(players[attackerInt]);
     }
 
@@ -453,17 +456,18 @@ public class Valhalla : MonoBehaviour
             if (card.tag == "cover") card.gameObject.SetActive(false);
             card.transform.localEulerAngles = Vector3.zero;
 
-            if (i <= 5)
+            if (i > 4)
+            {
+                card.transform.localPosition = new Vector3(position[0] + (xOffset * z), position[1] - yOffset, position[2]);
+                i++;
+                z++;
+            }
+            if (i <= 4)
             {
                 card.transform.localPosition = new Vector3(position[0] + (xOffset * i), position[1], position[2]);
                 i++;
             }            
-            if(i > 5)
-            {
-                card.transform.localPosition = new Vector3(position[0] + (xOffset * z), position[1] -yOffset, position[2]);
-                i++;
-                z++;
-            }
+            
         }
         SetCardButtons(param);
     }
@@ -472,20 +476,27 @@ public class Valhalla : MonoBehaviour
     {
         ClanDeck deck = players[player].transform.GetChild(0).gameObject.GetComponent<ClanDeck>();
         topRow[4].SetActive(false);
+
         if (deck.bladedancer.isDead) topRow[0].SetActive(false);
+        else topRow[0].SetActive(true);
         if (deck.beserker.isDead) topRow[1].SetActive(false);
+        else topRow[1].SetActive(true);
         if (deck.ranger.isDead) topRow[2].SetActive(false);
+        else topRow[2].SetActive(true);
         if (deck.warrior.isDead) topRow[3].SetActive(false);
-        if (deck.sureshot.isDead) bottomRow[5].SetActive(false);
-        if (deck.headsman.isDead) bottomRow[6].SetActive(false);
-        if (deck.brute.isDead) bottomRow[7].SetActive(false);
-        if (deck.shieldmaiden.isDead) bottomRow[8].SetActive(false);
-        if (deck.goliath.isDead) bottomRow[9].SetActive(false);
-        if (deck.bladedancer.isDead && deck.beserker.isDead &&
-            deck.ranger.isDead && deck.warrior.isDead &&
-            deck.sureshot.isDead && deck.headsman.isDead &&
-            deck.brute.isDead && deck.shieldmaiden.isDead &&
-            deck.goliath.isDead) topRow[4].SetActive(true);
+        else topRow[3].SetActive(true);
+        if (deck.sureshot.isDead) bottomRow[0].SetActive(false);
+        else bottomRow[0].SetActive(true);
+        if (deck.headsman.isDead) bottomRow[1].SetActive(false);
+        else bottomRow[1].SetActive(true);
+        if (deck.brute.isDead) bottomRow[2].SetActive(false);
+        else bottomRow[2].SetActive(true);
+        if (deck.shieldmaiden.isDead) bottomRow[3].SetActive(false);
+        else bottomRow[3].SetActive(true);
+        if (deck.goliath.isDead) bottomRow[4].SetActive(false);
+        else bottomRow[4].SetActive(true);
+
+        if (deck.ClanDeath()) topRow[4].SetActive(true);
     }
 
     public void SelectCard(int ind)

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ClanDeck : MonoBehaviour
 {
+    public List<ClanCard> deck;
+    
     public ClanCard bladedancer;
     public ClanCard beserker;
     public ClanCard ranger;
@@ -22,6 +24,8 @@ public class ClanDeck : MonoBehaviour
     void Awake()
     {
         parent = this.transform.parent.GetComponent<MainHand>();
+
+        deck = new List<ClanCard>();
 
         bladedancer = null;
         beserker = null;
@@ -49,24 +53,29 @@ public class ClanDeck : MonoBehaviour
                 {
                     case 1:
                         bladedancer = card.gameObject.GetComponent<ClanCard>();
+                        deck.Add(bladedancer);
                         break;
 
                     case 2:
                         beserker = card.gameObject.GetComponent<ClanCard>();
+                        deck.Add(beserker);
                         break;
 
                     case 3:
                         ranger = card.gameObject.GetComponent<ClanCard>();
+                        deck.Add(ranger);
                         break;
 
                     case 4:
                         warrior = card.gameObject.GetComponent<ClanCard>();
+                        deck.Add(warrior);
                         break;                    
                 }
             }
             else if (name == id + " Chieftain")
             {
                 chieftain = card.gameObject.GetComponent<ClanCard>();
+                deck.Add(chieftain);
                 chief = true;
             }
             else if(chief && id + " " + (i-1).ToString() == name)
@@ -75,22 +84,27 @@ public class ClanDeck : MonoBehaviour
                 {
                     case 5:
                         sureshot = card.gameObject.GetComponent<ClanCard>();
+                        deck.Add(sureshot);
                         break;
 
                     case 6:
                         headsman = card.gameObject.GetComponent<ClanCard>();
+                        deck.Add(headsman);
                         break;
 
                     case 7:
                         brute = card.gameObject.GetComponent<ClanCard>();
+                        deck.Add(brute);
                         break;
 
                     case 8:
                         shieldmaiden = card.gameObject.GetComponent<ClanCard>();
+                        deck.Add(shieldmaiden);
                         break;
 
                     case 9:
                         goliath = card.gameObject.GetComponent<ClanCard>();
+                        deck.Add(goliath);
                         break;
                 }
             }
@@ -98,8 +112,8 @@ public class ClanDeck : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+
+    public void CheckHealth()
     {
         if (bladedancer.Health <= 0)
         {
@@ -192,6 +206,35 @@ public class ClanDeck : MonoBehaviour
                 goliath.inPlay = false;
             }
         }
+
+        if (chieftain.Health <= 0)
+        {
+            chieftain.isDead = true;
+            chieftain.GetComponent<SpriteRenderer>().sprite = null;
+            if (chieftain.inPlay)
+            {
+                parent.clanCard = null;
+                chieftain.inPlay = false;
+                parent.PlayerOut();
+                
+            }
+        }
+    }
+
+    public bool ClanDeath()
+    {
+        int dead = 0;
+        foreach(ClanCard card in deck)
+        {
+            if (card.isDead) dead++;
+        }
+
+        if (dead == 9)
+        {
+            Debug.Log("Chief button active");
+            return true;
+        }
+        else return false;
     }
 }
 
