@@ -11,7 +11,7 @@ public class ClanCard : MonoBehaviour
     GameObject cover;
     public bool isDead;
     public bool inPlay;
-    int health;
+    public int health;
     public int attack;
 
     [Header("Put in")]
