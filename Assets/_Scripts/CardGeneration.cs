@@ -250,14 +250,17 @@ public class CardGeneration : MonoBehaviour
             GameObject tempMending = Instantiate(eMendingPrefab);
             tempMending.GetComponent<SpriteRenderer>().sprite = elixirSprites[0];
             tempMending.name = "ELIX_mending";
+            tempMending.tag = "Mending";
 
             GameObject tempEnergy = Instantiate(eEnergyPrefab);
             tempEnergy.GetComponent<SpriteRenderer>().sprite = elixirSprites[1];
             tempEnergy.name = "ELIX_energy";
+            tempEnergy.tag = "Energy";
 
             GameObject tempTainted = Instantiate(eTaintedPrefab);
             tempTainted.GetComponent<SpriteRenderer>().sprite = elixirSprites[2];
-            tempTainted.name = "ELIX_tained";
+            tempTainted.name = "ELIX_tainted";
+            tempTainted.tag = "Tainted";
 
             tempMending.transform.localScale = new Vector3(1, 0.8f, 1);
             tempEnergy.transform.localScale = new Vector3(1, 0.8f, 1);

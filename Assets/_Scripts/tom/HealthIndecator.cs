@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthIndecator : MonoBehaviour
+public class HealthIndecator : MonoBehaviour // Indicator 
 {
 
     private Slider slider;
