@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class eEnergy : MonoBehaviour
 {
-    public void CardPlayed()
+    // Start is called before the first frame update
+    void Start()
     {
-        GameObject energy = this.gameObject;
-        energy.GetComponent<Valhalla>().attackerInt--;
-        if (energy.GetComponent<Valhalla>().attackerInt < 0)
-        {
-            energy.GetComponent<Valhalla>().attackerInt = 3;
-        }
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }

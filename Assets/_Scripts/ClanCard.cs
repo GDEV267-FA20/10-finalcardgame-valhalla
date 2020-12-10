@@ -43,7 +43,7 @@ public class ClanCard : MonoBehaviour
         isDead = false;
         inPlay = false;
         faceUp = true;
-        maxHealth = health;
+        maxHealth = Health;
     }
 
     void Update()

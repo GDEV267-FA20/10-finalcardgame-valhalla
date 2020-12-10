@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class eTainted : MonoBehaviour
 {
-    public void CardPlayed()
+    // Start is called before the first frame update
+    void Start()
     {
-        GameObject tainted = this.gameObject;
-        tainted.GetComponent<Valhalla>().attackerInt++;
-        if(tainted.GetComponent<Valhalla>().attackerInt > 3)
-        {
-            tainted.GetComponent<Valhalla>().attackerInt = 0;
-        }
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }
