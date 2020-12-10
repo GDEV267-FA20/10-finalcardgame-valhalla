@@ -105,55 +105,92 @@ public class ClanDeck : MonoBehaviour
         {
             bladedancer.isDead = true;
             bladedancer.GetComponent<SpriteRenderer>().sprite = null;
-            parent.clanCard = null;
+            if (bladedancer.inPlay)
+            {
+                parent.clanCard = null;
+                bladedancer.inPlay = false;
+            }
+            
         }
         if (beserker.Health <= 0)
         {
             beserker.isDead = true;
             beserker.GetComponent<SpriteRenderer>().sprite = null;
-            parent.clanCard = null;
+            if (beserker.inPlay)
+            {
+                parent.clanCard = null;
+                beserker.inPlay = false;
+            }
         }
         if (ranger.Health <= 0)
         {
             ranger.isDead = true;
             ranger.GetComponent<SpriteRenderer>().sprite = null;
-            parent.clanCard = null;
+            if (ranger.inPlay)
+            {
+                parent.clanCard = null;
+                ranger.inPlay = false;
+            }
         }
         if (warrior.Health <= 0)
         {
             warrior.isDead = true;
             warrior.GetComponent<SpriteRenderer>().sprite = null;
-            parent.clanCard = null;
+            if (warrior.inPlay)
+            {
+                parent.clanCard = null;
+                warrior.inPlay = false;
+            }
         }
         if (sureshot.Health <= 0)
         {
             sureshot.isDead = true;
             sureshot.GetComponent<SpriteRenderer>().sprite = null;
-            parent.clanCard = null;
+            if (sureshot.inPlay)
+            {
+                parent.clanCard = null;
+                sureshot.inPlay = false;
+            }
         }
         if(headsman.Health <= 0)
         {
             headsman.isDead = true;
             headsman.GetComponent<SpriteRenderer>().sprite = null;
-            parent.clanCard = null;
+            if (headsman.inPlay)
+            {
+                parent.clanCard = null;
+                headsman.inPlay = false;
+            }
         }
         if(brute.Health <= 0)
         {
             brute.isDead = true;
             brute.GetComponent<SpriteRenderer>().sprite = null;
-            parent.clanCard = null;
+            if (brute.inPlay)
+            {
+                parent.clanCard = null;
+                brute.inPlay = false;
+            }
         }
         if(shieldmaiden.Health <= 0)
         {
             shieldmaiden.isDead = true;
             shieldmaiden.GetComponent<SpriteRenderer>().sprite = null;
-            parent.clanCard = null;
+            if (shieldmaiden.inPlay)
+            {
+                parent.clanCard = null;
+                shieldmaiden.inPlay = false;
+            }
         }
         if(goliath.Health <= 0)
         {
             goliath.isDead = true;
             goliath.GetComponent<SpriteRenderer>().sprite = null;
-            parent.clanCard = null;
+            if (goliath.inPlay)
+            {
+                parent.clanCard = null;
+                goliath.inPlay = false;
+            }
         }
     }
 }

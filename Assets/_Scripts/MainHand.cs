@@ -59,8 +59,7 @@ public class MainHand : MonoBehaviour
 
     public void Scavenge()
     {
-        int lastAlive = valhalla.lastAlive;
-        Debug.Log("Last Alive: " + lastAlive);
+        int lastAlive = valhalla.lastAlive;        
         List<MainHand> list = valhalla.hands;
 
         valhalla.hands[lastAlive].equipCard.transform.position = new Vector3(0, 0, -20);
@@ -73,6 +72,16 @@ public class MainHand : MonoBehaviour
         equipCard = null;
 
         valhalla.EquipCleanup();         
+    }
+
+    public void SetClanCard(GameObject card)
+    {
+        clanCard = card;
+    }
+
+    public void SetEquip(GameObject card)
+    {
+        equipCard = card;
     }
 
     public void SetElixMenu()
@@ -90,7 +99,7 @@ public class MainHand : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (elixirs.Count > 0) elixirButton.SetActive(true);
         else elixirButton.SetActive(false);
