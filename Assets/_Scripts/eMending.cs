@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class eMending : MonoBehaviour
 {
-    public void CardPlayed (ClanCard currentDelegate)
+    public void CardPlayed ()
     {
-        currentDelegate.Health += 4;
-        if(currentDelegate.Health > currentDelegate.maxHealth)
+        GameObject currentCard = this.transform.parent.transform.parent.gameObject;
+        currentCard.GetComponent<ClanCard>().Health += 4;
+        if(currentCard.GetComponent<ClanCard>().Health > currentCard.GetComponent<ClanCard>().maxHealth)
         {
-            currentDelegate.Health = currentDelegate.maxHealth;
+            currentCard.GetComponent<ClanCard>().Health = currentCard.GetComponent<ClanCard>().maxHealth;
         }
     }
 }
