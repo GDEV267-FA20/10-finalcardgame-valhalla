@@ -13,6 +13,10 @@ public class MainHand : MonoBehaviour
     public List<GameObject> ener;
     public List<GameObject> tain;
 
+    public bool enerActive;
+    public bool tainActive;
+    public bool skipActive;
+
     [Header("all you: ")]
     public Slider healthSlider;
     public GameObject elixirButton;
@@ -25,15 +29,79 @@ public class MainHand : MonoBehaviour
         mend = new List<GameObject>();
         ener = new List<GameObject>();
         tain = new List<GameObject>();
+        enerActive = false;
+        tainActive = false;
+        skipActive = false;
+    }
+
+    public void UseMending()
+    {
+        clanCard.GetComponent<ClanCard>().health += 4;
+        if (clanCard.GetComponent<ClanCard>().health > clanCard.GetComponent<ClanCard>().maxHealth) clanCard.GetComponent<ClanCard>().health = clanCard.GetComponent<ClanCard>().maxHealth;
+        healthSlider.value = this.clanCard.GetComponent<ClanCard>().Health;
+
+        int i = 0;
+        foreach(GameObject elix in elixirs)
+        {
+            if(mend[0] == elix)
+            {
+                mend.RemoveAt(0);
+                elixirs.RemoveAt(i);
+                return;
+            }
+            i++;
+        }
+    }
+    public void UseEnergy()
+    {
+        enerActive = true;
+
+        int i = 0;
+        foreach (GameObject elix in elixirs)
+        {
+            if (ener[0] == elix)
+            {
+                ener.RemoveAt(0);
+                elixirs.RemoveAt(i);
+                return;
+            }
+            i++;
+        }
+    }
+    public void UseTainted()
+    {
+        tainActive = true;
+
+        int i = 0;
+        foreach (GameObject elix in elixirs)
+        {
+            if (tain[0] == elix)
+            {
+                tain.RemoveAt(0);
+                elixirs.RemoveAt(i);
+                return;
+            }
+            i++;
+        }
     }
 
     public void Attack()
     {
         int mod = 0;
         int ind = valhalla.attackerInt;
-        mod += valhalla.players[ind].GetComponent<MainHand>().clanCard.GetComponent<ClanCard>().attack;
-        mod += valhalla.players[ind].GetComponent<MainHand>().equipCard.GetComponent<EquipCard>().Weap;
+        MainHand hand = valhalla.players[ind].GetComponent<MainHand>();
+        mod += hand.clanCard.GetComponent<ClanCard>().attack;
+        mod += hand.equipCard.GetComponent<EquipCard>().Weap;
         mod += this.equipCard.GetComponent<EquipCard>().Arm;
+        
+        if (hand.tainActive)
+        {
+            Debug.Log("Skip active");
+            skipActive = true;
+            hand.tainActive = false;
+        }
+        
+        
 
         int damage = 3;
         damage += mod;
@@ -58,6 +126,16 @@ public class MainHand : MonoBehaviour
             player.transform.GetChild(0).GetComponent<ClanDeck>().CheckHealth();
             this.transform.GetChild(2).GetComponent<DeathRep>().Check();
         }
+        if (skipActive)
+        {
+            Debug.Log("Skipping");
+            skipActive = false;
+            valhalla.attackerInt++;
+            if (valhalla.attackerInt >= 4) valhalla.attackerInt = 0;
+            hand = valhalla.players[valhalla.attackerInt].GetComponent<MainHand>();
+            if (hand.clanCard == null) valhalla.NextTurn();
+        }
+        valhalla.NextTurn();
     }
     
     public void PlayerOut()
@@ -68,27 +146,27 @@ public class MainHand : MonoBehaviour
 
             if (this.name == "BLUE")
             {
-                Destroy(valhalla.blue);
+                valhalla.blue.transform.position = new Vector2(0, 100);
                 this.transform.GetChild(1).gameObject.SetActive(false);
-                this.transform.GetChild(2).transform.position = new Vector2(0, 2);
+                //this.transform.GetChild(2).transform.position = new Vector2(0, 2);
             }
             if (this.name == "PURPLE")
             {
-                Destroy(valhalla.purple);
+                valhalla.purple.transform.position = new Vector2(0, 100);
                 this.transform.GetChild(1).gameObject.SetActive(false);
-                this.transform.GetChild(2).transform.position = new Vector2(0, 2);
+                //this.transform.GetChild(2).transform.position = new Vector2(0, 2);
             }
             if (this.name == "RED")
             {
-                Destroy(valhalla.red);
+                valhalla.red.transform.position = new Vector2(0, 100);
                 this.transform.GetChild(1).gameObject.SetActive(false);
-                this.transform.GetChild(2).transform.position = new Vector2(0, -2);
+                //this.transform.GetChild(2).transform.position = new Vector2(0, -2);
             }
             if (this.name == "YELLOW")
             {
-                Destroy(valhalla.yellow);
+                valhalla.yellow.transform.position = new Vector2(0, 100);
                 this.transform.GetChild(1).gameObject.SetActive(false);
-                this.transform.GetChild(2).transform.position = new Vector2(0, 2);
+                //this.transform.GetChild(2).transform.position = new Vector2(0, 2);
             }
         }
     }
@@ -129,6 +207,8 @@ public class MainHand : MonoBehaviour
 
     public void SetElixMenu()
     {
+        valhalla.menuPlayer = this;
+
         valhalla.mending.text = "x " + mend.Count;
         valhalla.energy.text = "x " + ener.Count;
         valhalla.tainted.text = "x " + tain.Count;

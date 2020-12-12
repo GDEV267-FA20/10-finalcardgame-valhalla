@@ -461,8 +461,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1126700147
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0491605a1676a4b4d9c0df5e1329d61f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -614,8 +614,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1126700147
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ea526c26efff1ec4580410be0ee66efe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2116,9 +2116,9 @@ MonoBehaviour:
   purple: {fileID: 0}
   red: {fileID: 0}
   yellow: {fileID: 0}
-  elixerEngergy: 0
-  turnToSkip: -1
-  taintedElixBool: 0
+  menuPlayer: {fileID: 0}
+  skipScan: 0
+  secondAttack: 0
 --- !u!1 &438351265
 GameObject:
   m_ObjectHideFlags: 0
@@ -3553,13 +3553,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 430312831}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
+      - m_Target: {fileID: 430312836}
+        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
+        m_MethodName: UseMend
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3697,30 +3697,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 430312836}
-        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
-        m_MethodName: NextTurn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 430312836}
-        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
-        m_MethodName: SetTainted
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &686191465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3832,8 +3808,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2084780217
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.41960785}
@@ -4728,6 +4704,9 @@ MonoBehaviour:
   mend: []
   ener: []
   tain: []
+  enerActive: 0
+  tainActive: 0
+  skipActive: 0
   healthSlider: {fileID: 1562829894}
   elixirButton: {fileID: 459345420}
 --- !u!1001 &892969368
@@ -5583,6 +5562,9 @@ MonoBehaviour:
   mend: []
   ener: []
   tain: []
+  enerActive: 0
+  tainActive: 0
+  skipActive: 0
   healthSlider: {fileID: 89031450}
   elixirButton: {fileID: 1578251832}
 --- !u!114 &1056108164 stripped
@@ -5649,6 +5631,9 @@ MonoBehaviour:
   mend: []
   ener: []
   tain: []
+  enerActive: 0
+  tainActive: 0
+  skipActive: 0
   healthSlider: {fileID: 1056108164}
   elixirButton: {fileID: 783349461}
 --- !u!4 &1096411061 stripped
@@ -6517,30 +6502,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: PurpDeck
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 430312836}
-        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
-        m_MethodName: NextTurn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 430312836}
-        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
-        m_MethodName: SetTainted
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1260953086
@@ -7587,7 +7548,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 430312836}
         m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
-        m_MethodName: UseTaintedElixer
+        m_MethodName: UseTain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7595,7 +7556,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1552683313
 MonoBehaviour:
@@ -7858,8 +7819,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2084780217
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.41960785}
@@ -9089,8 +9050,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2084780217
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.41960785}
@@ -9198,7 +9159,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 430312836}
         m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
-        m_MethodName: UseEnergyElixer
+        m_MethodName: UseEner
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9509,30 +9470,6 @@ MonoBehaviour:
           m_StringArgument: RedDeck
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 430312836}
-        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
-        m_MethodName: NextTurn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 430312836}
-        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
-        m_MethodName: SetTainted
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1876621306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9624,6 +9561,9 @@ MonoBehaviour:
   mend: []
   ener: []
   tain: []
+  enerActive: 0
+  tainActive: 0
+  skipActive: 0
   healthSlider: {fileID: 531959359}
   elixirButton: {fileID: 667948500}
 --- !u!1 &1903570724
@@ -9838,8 +9778,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1126700147
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0658287621e3f8d4d8a0601e9f42c8cb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -10753,30 +10693,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: YellDeck
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 430312836}
-        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
-        m_MethodName: NextTurn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 430312836}
-        m_TargetAssemblyTypeName: Valhalla, Assembly-CSharp
-        m_MethodName: SetTainted
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2114373680

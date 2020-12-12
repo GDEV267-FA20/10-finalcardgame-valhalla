@@ -57,17 +57,17 @@ public class Valhalla : MonoBehaviour
     public GameObject purple;
     public GameObject red;
     public GameObject yellow;
-    
+
 
 
 
     [Header("all you bruv")]
     //public List<GameObject> players;
 
-    [Header("Tom's Variables")]
-    public bool elixerEngergy = false;
-    public int turnToSkip = -1;
-    public bool taintedElixBool = false;
+    [Header("Elixir Variables")]
+    public MainHand menuPlayer;
+    public bool skipScan;
+    public bool secondAttack;
 
 
     void Awake()
@@ -94,6 +94,9 @@ public class Valhalla : MonoBehaviour
 
         dead = 0;
         lastAlive = -1;
+        skipScan = false;
+        secondAttack = false;
+        menuPlayer = null;
     }
     void Start()
     {
@@ -229,7 +232,7 @@ public class Valhalla : MonoBehaviour
                 trigger1 = true;
                 foreach (MainHand hand in hands)
                 {
-                    hand.SetMaxHealthSlider(); // sets the healthbar max value to the starting health
+                    if(hand.gameObject != players[lastAlive]) hand.SetMaxHealthSlider(); // sets the healthbar max value to the starting health
                     hand.healthSlider.gameObject.SetActive(true);
                 }
                 ResetAttackButtons();
@@ -285,31 +288,38 @@ public class Valhalla : MonoBehaviour
 
     public void NextTurn()
     {
-        ResetAttackButtons();
-        if(!elixerEngergy)
+        MainHand hand = players[attackerInt].GetComponent<MainHand>();
+        if (hand.enerActive)
         {
-            attackerInt++;
+            secondAttack = true;
+            hand.enerActive = false;
+        }
+        if (secondAttack)
+        {
+            secondAttack = false;            
         }
         else
         {
-            elixerEngergy = false;
-        }
-
-
-        if(turnToSkip == attackerInt)
-        {
             attackerInt++;
-            turnToSkip = -1;
+            if (attackerInt >= 4) attackerInt = 0;
+            hand = players[attackerInt].GetComponent<MainHand>();
+            if (hand.clanCard == null) NextTurn();            
         }
-
-
-
-        attackerInt++;
-
-        if (attackerInt >= 4) attackerInt = 0;
-        if (players[attackerInt].GetComponent<MainHand>().clanCard == null) NextTurn();
         ResetAttackButtons();
         SetAttackButtons(players[attackerInt]);
+    }
+
+    public void UseMend()
+    {
+        menuPlayer.UseMending();
+    }
+    public void UseEner()
+    {
+        menuPlayer.UseEnergy();
+    }
+    public void UseTain()
+    {
+        menuPlayer.UseTainted();
     }
 
     void ResetAttackButtons()
@@ -321,36 +331,7 @@ public class Valhalla : MonoBehaviour
             child.gameObject.SetActive(false);
         }        
     }
-
-
-    public void UseEnergyElixer()
-    {
-        elixerEngergy = true;
-
-    }
-
-    public void UseTaintedElixer()
-    {
-        taintedElixBool = true;
-    }
-
-    public void SetTainted(int taint)
-    {
-        if(taintedElixBool)
-        {
-            turnToSkip = taint;
-            taintedElixBool = false;
-        }
-        
-    }
-
-    public void UseMendingElixer()
-    {
-        ////This needs to be edited so it doesn't go over max health
-        players[attackerInt].GetComponent<MainHand>().clanCard.GetComponent<ClanCard>().health += 4; 
-    }
-
-
+   
     void SetAttackButtons(GameObject attacker)
     {
         if (attacker.name == "BLUE")
@@ -690,7 +671,7 @@ public class Valhalla : MonoBehaviour
 
     public void DrawElixir()
     {
-        GameObject elix = CardGeneration.S.elixirDeck[Random.Range(0, 11)];
+        GameObject elix = CardGeneration.S.elixirDeck[2]; //change this to Random.Range(0, 11)
         hands[lastAlive].elixirs.Add(elix);
         
         if (elix.tag == "Mending") hands[lastAlive].mend.Add(elix);
