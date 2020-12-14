@@ -127,13 +127,15 @@ public class MainHand : MonoBehaviour
             valhalla.dead++;            
             Debug.Log("Dead: "+valhalla.dead);
         }
+        int i = 0;
         foreach(GameObject player in valhalla.players)
-        {
-            if (!isOut)
+        {            
+            if (player.transform.childCount == 3)
             {
                 player.transform.GetChild(0).GetComponent<ClanDeck>().CheckHealth();
-                this.transform.GetChild(2).GetComponent<DeathRep>().Check();
+                GameObject.FindGameObjectWithTag(i.ToString()).GetComponent<DeathRep>().Check();
             }
+            i++;
         }        
         valhalla.NextTurn();
     }
@@ -141,6 +143,7 @@ public class MainHand : MonoBehaviour
     public void PlayerOut()
     {
         isOut = true;
+        valhalla.clanDeadQue++;
         equipCard.transform.position = new Vector3(0, 0, -20);
         equipCard.transform.eulerAngles = Vector3.zero;
         equipCard.GetComponent<EquipCard>().InPlay = false;
@@ -223,6 +226,7 @@ public class MainHand : MonoBehaviour
     public void SetClanCard(GameObject card)
     {
         clanCard = card;
+        card.transform.position = this.transform.position;
     }
 
     public void SetEquip(GameObject card)
