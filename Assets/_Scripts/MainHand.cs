@@ -16,6 +16,7 @@ public class MainHand : MonoBehaviour
     public bool enerActive;
     public bool tainActive;
     public bool skipActive;
+    public bool isOut = false;
 
     [Header("all you: ")]
     public Slider healthSlider;
@@ -97,7 +98,12 @@ public class MainHand : MonoBehaviour
         if (hand.tainActive)
         {
             Debug.Log("Skip active");
-            skipActive = true;
+            if (this.gameObject.name == "BLUE") valhalla.skipInt = 3;
+            if (this.gameObject.name == "PURPLE") valhalla.skipInt = 0; //don't ask why it's rolled back
+            if (this.gameObject.name == "RED") valhalla.skipInt = 1;
+            if (this.gameObject.name == "YELLOW") valhalla.skipInt = 2;
+
+            Debug.Log("SkipInt: " + valhalla.skipInt);
             hand.tainActive = false;
         }
         
@@ -123,52 +129,71 @@ public class MainHand : MonoBehaviour
         }
         foreach(GameObject player in valhalla.players)
         {
-            player.transform.GetChild(0).GetComponent<ClanDeck>().CheckHealth();
-            this.transform.GetChild(2).GetComponent<DeathRep>().Check();
-        }
-        if (skipActive)
-        {
-            Debug.Log("Skipping");
-            skipActive = false;
-            valhalla.attackerInt++;
-            if (valhalla.attackerInt >= 4) valhalla.attackerInt = 0;
-            hand = valhalla.players[valhalla.attackerInt].GetComponent<MainHand>();
-            if (hand.clanCard == null) valhalla.NextTurn();
-        }
+            if (!isOut)
+            {
+                player.transform.GetChild(0).GetComponent<ClanDeck>().CheckHealth();
+                this.transform.GetChild(2).GetComponent<DeathRep>().Check();
+            }
+        }        
         valhalla.NextTurn();
     }
     
     public void PlayerOut()
     {
-        foreach(Transform child in this.transform.GetChild(0))
-        {
-            child.gameObject.SetActive(false);
+        isOut = true;
+        equipCard.transform.position = new Vector3(0, 0, -20);
+        equipCard.transform.eulerAngles = Vector3.zero;
+        equipCard.GetComponent<EquipCard>().InPlay = false;
+        equipCard = null;
 
-            if (this.name == "BLUE")
+        elixirButton.transform.position = new Vector2(0, -1000);
+        healthSlider.transform.parent.gameObject.SetActive(false);
+
+        this.transform.GetChild(1).gameObject.SetActive(false);
+        this.transform.GetChild(2).GetComponent<DeathRep>().Check();
+
+        if (this.name == "BLUE")
+        {
+            valhalla.blue.transform.position = new Vector2(0, -1000);
+            this.transform.GetChild(2).transform.position = new Vector3(0, -2.5f);
+            foreach(Transform card in this.transform.GetChild(0).transform)
             {
-                valhalla.blue.transform.position = new Vector2(0, 100);
-                this.transform.GetChild(1).gameObject.SetActive(false);
-                //this.transform.GetChild(2).transform.position = new Vector2(0, 2);
+                card.gameObject.SetActive(false);
             }
-            if (this.name == "PURPLE")
-            {
-                valhalla.purple.transform.position = new Vector2(0, 100);
-                this.transform.GetChild(1).gameObject.SetActive(false);
-                //this.transform.GetChild(2).transform.position = new Vector2(0, 2);
-            }
-            if (this.name == "RED")
-            {
-                valhalla.red.transform.position = new Vector2(0, 100);
-                this.transform.GetChild(1).gameObject.SetActive(false);
-                //this.transform.GetChild(2).transform.position = new Vector2(0, -2);
-            }
-            if (this.name == "YELLOW")
-            {
-                valhalla.yellow.transform.position = new Vector2(0, 100);
-                this.transform.GetChild(1).gameObject.SetActive(false);
-                //this.transform.GetChild(2).transform.position = new Vector2(0, 2);
-            }
+
+            valhalla.selectButtons.transform.Find("Blue").gameObject.SetActive(false);
         }
+        if (this.name == "PURPLE")
+        {
+            valhalla.purple.transform.position -= new Vector3(0, -1000);
+            this.transform.GetChild(2).transform.position = new Vector3(-5,0);
+            foreach (Transform card in this.transform.GetChild(0).transform)
+            {
+                card.gameObject.SetActive(false);
+            }
+            valhalla.selectButtons.transform.Find("Purp").gameObject.SetActive(false);
+        }
+        if (this.name == "RED")
+        {
+            valhalla.red.transform.position -= new Vector3(0, -1000);
+            this.transform.GetChild(2).transform.position = new Vector3(0, 2.5f);
+            foreach (Transform card in this.transform.GetChild(0).transform)
+            {
+                card.gameObject.SetActive(false);
+            }
+            valhalla.selectButtons.transform.Find("Red").gameObject.SetActive(false);
+        }
+        if (this.name == "YELLOW")
+        {
+            valhalla.yellow.transform.position -= new Vector3(0, -1000);
+            this.transform.GetChild(2).transform.position = new Vector3(5, 0);
+            foreach (Transform card in this.transform.GetChild(0).transform)
+            {
+                card.gameObject.SetActive(false);
+            }
+            valhalla.selectButtons.transform.Find("Yell").gameObject.SetActive(false);
+        }
+        this.transform.GetChild(2).transform.parent = null;
     }
 
     public void SetMaxHealthSlider()

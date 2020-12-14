@@ -236,5 +236,20 @@ public class ClanDeck : MonoBehaviour
         }
         else return false;
     }
+
+    public bool CheckDeckDeath()
+    {
+        int dead = 0;
+        foreach (ClanCard card in deck)
+        {
+            if (card.isDead) dead++;
+        }
+
+        if (dead == 10)
+        {
+            return true;
+        }
+        else return false;
+    }
 }
 
